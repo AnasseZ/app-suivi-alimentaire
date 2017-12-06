@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">app-suivi-alimentaire</string>
+    <string name="searchFoodButton">Rechercher</string>
 </resources>
