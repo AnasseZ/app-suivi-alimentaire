@@ -30,7 +30,8 @@
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="3dp">
+        android:layout_marginLeft="3dp"
+        android:id="@+id/linearLayout2">
 
         <EditText
             android:id="@+id/searchFoodTextInput"
@@ -45,11 +46,20 @@
             android:layout_height="wrap_content"
             android:id="@+id/searchFoodButton"
             android:text="@string/searchFoodButton"
-
             />
 
     </LinearLayout>
 
+    <TextView
+        android:text="bidule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/outputGson"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginTop="187dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
