@@ -13,6 +13,9 @@ public class Food {
     @SerializedName("serving_size")
     public String quantity;
 
+    @SerializedName("image_url")
+    public String imageUrl;
+
     public Food() {
 
     }

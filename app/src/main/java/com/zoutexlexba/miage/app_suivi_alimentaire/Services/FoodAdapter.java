@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
 import com.zoutexlexba.miage.app_suivi_alimentaire.R;
 
@@ -21,6 +23,7 @@ public class FoodAdapter extends ArrayAdapter<Food> {
     private static class ViewHolder {
         TextView name;
         TextView quantity;
+        ImageView foodImg;
     }
 
     public FoodAdapter(Context context, ArrayList<Food> foodArrayList) {
@@ -38,8 +41,10 @@ public class FoodAdapter extends ArrayAdapter<Food> {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.list_item, parent, false);
+
             viewHolder.name = (TextView) convertView.findViewById(R.id.foodName);
             viewHolder.quantity = (TextView) convertView.findViewById(R.id.quantity);
+            viewHolder.foodImg = (ImageView) convertView.findViewById(R.id.foodImg);
             // Cache the viewHolder object inside the fresh view
             convertView.setTag(viewHolder);
         } else {
@@ -51,6 +56,7 @@ public class FoodAdapter extends ArrayAdapter<Food> {
         viewHolder.name.setText(food.name);
         viewHolder.quantity.setText(food.quantity);
         // Return the completed view to render on screen
+        Picasso.with(this.getContext()).load(food.imageUrl).resize(150, 150).into(viewHolder.foodImg);
         return convertView;
     }
 }

@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -29,6 +29,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     // gson
     compile 'com.google.code.gson:gson:2.6.2'
+
+    // picasso for displaying images
+    compile 'com.squareup.picasso:picasso:2.5.2'
     //orm
     compile files('C:/Users/Paulalex/git/app-suivi-alimentaire/libs/ormlite-android-5.0.jar')
     compile files('C:/Users/Paulalex/git/app-suivi-alimentaire/libs/ormlite-core-5.0.jar')
