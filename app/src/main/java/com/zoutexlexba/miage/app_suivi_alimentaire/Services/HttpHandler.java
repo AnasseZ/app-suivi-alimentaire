@@ -67,8 +67,8 @@ public class HttpHandler {
         return sb.toString();
     }
 
-    public FoodResponse getFoodFromJson() {
+    public FoodResponse getFoodFromJson(String json) {
         Gson gson = new Gson();
-        return gson.fromJson("{\"nom\":\"Une banane\",\"grammes\":126, \"bidule\": \"doitFail\"}", FoodResponse.class);
+        return gson.fromJson(json, FoodResponse.class);
     }
 }

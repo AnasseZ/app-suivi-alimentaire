@@ -6,10 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodResponse;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodAdapter;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.HttpHandler;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
     private String URL_2 = "&search_simple=1&action=process&json=1";
 
     public HttpHandler httpHandler = new HttpHandler();
+    public ArrayList<Food> foodList;
+
+    private FoodAdapter foodAdapter;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +36,6 @@ public class MainActivity extends AppCompatActivity {
         Button searchFoodButton = (Button) findViewById(R.id.searchFoodButton);
         final EditText userInput = (EditText) findViewById(R.id.searchFoodTextInput);
 
-        FoodResponse food = httpHandler.getFoodFromJson();
-
-        TextView view = (TextView) findViewById(R.id.outputGson);
-        view.setText(food.nom + " fait " + food.grammes + "grammes.");
-
         searchFoodButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 foodName = userInput.getText().toString();
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        listView = (ListView) findViewById(R.id.foodList);
     }
 
     private class ApiCallOperation extends AsyncTask<String, Integer, String> {
@@ -52,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             // API CALL HERE
-            return httpHandler.makeServiceCall(URL_1 + foodName + URL_2);
+            String apiResponse = httpHandler.makeServiceCall(URL_1 + foodName + URL_2);
+            foodList = httpHandler.getFoodFromJson(apiResponse).foodList;
+            return  foodList.size() + " aliments trouvés.";
         }
 
         @Override
@@ -71,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
             TextView txt = (TextView) findViewById(R.id.outputGson);
             txt.setText(result);
+
+            foodAdapter = new FoodAdapter(MainActivity.this, foodList);
+            listView.setAdapter(foodAdapter);
         }
     }
 }
