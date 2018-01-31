@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <TextView
         android:id="@+id/foodName"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
         android:paddingTop="6dip"
@@ -14,15 +15,27 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:text="Nom:"
+        android:layout_toLeftOf="@+id/foodImg"
+        android:layout_alignParentLeft="true"
         />
 
     <TextView
         android:id="@+id/quantity"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
         android:textColor="@color/colorAccent"
         android:text="Quantité:"
+        android:layout_below="@+id/foodName"
+        android:layout_alignParentLeft="true"
         />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/foodImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_alignParentRight="true"
+        />
+
+</RelativeLayout>
