@@ -16,8 +16,14 @@ import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodResponse;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodAdapter;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.Aliment;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodResponse;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.HttpHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
