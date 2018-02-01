@@ -88,39 +88,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         testv.setText(String.valueOf(testaliment1.getCalories()));
     }
 
-
-        // get our dao
-        RuntimeExceptionDao<Aliment, String> alimentDao = getHelper().getAlimentDataDao();
-
-        Aliment testaliment1 = alimentDao.queryForId("test");
-        if(testaliment1 == null){
-            testaliment1 = new Aliment("test");
-            testaliment1.setCalories(1.0f);
-            alimentDao.create(testaliment1);
-        }
-
-        testORM(alimentDao, testaliment1);
-
-
-
-    }
-
-    private void testORM(final RuntimeExceptionDao<Aliment, String> alimentDao, final Aliment testaliment1){
-
-        final TextView testv = (TextView) findViewById(R.id.text_test);
-        Button buttontest = (Button) findViewById(R.id.button_test);
-
-        buttontest.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                testaliment1.setCalories(testaliment1.getCalories() + 1.0f);
-                alimentDao.update(testaliment1);
-                testv.setText(String.valueOf(testaliment1.getCalories()));
-            }
-        });
-
-        testv.setText(String.valueOf(testaliment1.getCalories()));
-    }
-
     private class ApiCallOperation extends AsyncTask<String, Integer, String> {
 
         @Override
