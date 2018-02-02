@@ -33,6 +33,6 @@ dependencies {
     // picasso for displaying images
     compile 'com.squareup.picasso:picasso:2.5.2'
     //orm
-    compile files('C:/Users/Paulalex/git/app-suivi-alimentaire/libs/ormlite-android-5.0.jar')
-    compile files('C:/Users/Paulalex/git/app-suivi-alimentaire/libs/ormlite-core-5.0.jar')
+    compile rootProject.files('./libs/ormlite-android-5.0.jar')
+    compile rootProject.files('./libs/ormlite-core-5.0.jar')
 }
