@@ -9,13 +9,24 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.Aliment;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodResponse;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodAdapter;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.Aliment;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodResponse;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.HttpHandler;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     private String foodName;
 
@@ -44,6 +55,37 @@ public class MainActivity extends AppCompatActivity {
         });
 
         listView = (ListView) findViewById(R.id.foodList);
+
+        // get our dao
+        RuntimeExceptionDao<Aliment, String> alimentDao = getHelper().getAlimentDataDao();
+
+        Aliment testaliment1 = alimentDao.queryForId("test");
+        if(testaliment1 == null){
+            testaliment1 = new Aliment("test");
+            testaliment1.setCalories(1.0f);
+            alimentDao.create(testaliment1);
+        }
+
+        testORM(alimentDao, testaliment1);
+
+
+
+    }
+
+    private void testORM(final RuntimeExceptionDao<Aliment, String> alimentDao, final Aliment testaliment1){
+
+        final TextView testv = (TextView) findViewById(R.id.text_test);
+        Button buttontest = (Button) findViewById(R.id.button_test);
+
+        buttontest.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                testaliment1.setCalories(testaliment1.getCalories() + 1.0f);
+                alimentDao.update(testaliment1);
+                testv.setText(String.valueOf(testaliment1.getCalories()));
+            }
+        });
+
+        testv.setText(String.valueOf(testaliment1.getCalories()));
     }
 
     private class ApiCallOperation extends AsyncTask<String, Integer, String> {
