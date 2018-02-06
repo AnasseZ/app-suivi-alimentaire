@@ -8,16 +8,18 @@ import com.google.gson.annotations.SerializedName;
 
 public class Food {
     @SerializedName("product_name_fr")
-    public String name;
+    private String name;
 
     @SerializedName("serving_size")
-    public String quantity;
+    private String quantity;
 
     @SerializedName("image_url")
-    public String imageUrl;
+    private String imageUrl;
 
     @SerializedName("product_name")
     public String realName;
+
+    private int quantityConsumed;
 
     public Food() {
 
@@ -58,5 +60,21 @@ public class Food {
 
     public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    public int getQuantityConsumed() {
+        return quantityConsumed;
+    }
+
+    public void setQuantityConsumed(int quantityConsumed) {
+        this.quantityConsumed = quantityConsumed;
+    }
+
+    public String getUsableName() {
+        if (name == null) {
+            return realName;
+        }
+
+        return name;
     }
 }
