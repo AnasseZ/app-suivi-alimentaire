@@ -9,8 +9,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.table.TableUtils;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Aliment;
 import com.zoutexlexba.miage.app_suivi_alimentaire.R;
 
 import java.sql.SQLException;

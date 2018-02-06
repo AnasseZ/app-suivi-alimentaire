@@ -1,6 +1,7 @@
 package com.zoutexlexba.miage.app_suivi_alimentaire.Services;
 
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Aliment;
 
 import java.io.File;
 
