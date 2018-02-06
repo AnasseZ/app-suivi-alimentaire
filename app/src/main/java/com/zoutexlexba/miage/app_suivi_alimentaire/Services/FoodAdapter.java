@@ -51,12 +51,13 @@ public class FoodAdapter extends ArrayAdapter<Food> {
             // View is being recycled, retrieve the viewHolder object from tag
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
         // Populate the data from the data object via the viewHolder object
         // into the template view.
-        viewHolder.name.setText(food.name);
-        viewHolder.quantity.setText(food.quantity);
+        viewHolder.name.setText(food.getUsableName());
+        viewHolder.quantity.setText(food.getQuantity());
         // Return the completed view to render on screen
-        Picasso.with(this.getContext()).load(food.imageUrl).resize(150, 150).into(viewHolder.foodImg);
+        Picasso.with(this.getContext()).load(food.getImageUrl()).resize(150, 150).into(viewHolder.foodImg);
         return convertView;
     }
 }

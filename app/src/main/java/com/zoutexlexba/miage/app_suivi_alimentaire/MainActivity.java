@@ -1,8 +1,11 @@
 package com.zoutexlexba.miage.app_suivi_alimentaire;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -28,6 +31,8 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     public HttpHandler httpHandler = new HttpHandler();
     public ArrayList<Food> foodList;
 
+    public ArrayList<Food> userFoodList;
+
     private FoodAdapter foodAdapter;
     private ListView listView;
 
@@ -46,7 +51,13 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             }
         });
 
+        // ICI en brut la liste de tous les items choisis de l'utilisateur,
+        // Il faudra biensûr faire autrement lorsqu'on aura des utilisateurs.
+        userFoodList = new ArrayList<>();
+
+
         listView = (ListView) findViewById(R.id.foodList);
+        listView.setOnItemClickListener(this.getOnItemClickListener());
 
         // get our dao
         RuntimeExceptionDao<Aliment, String> alimentDao = getHelper().getAlimentDataDao();
@@ -62,6 +73,59 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 
 
+    }
+
+    /**
+     * Gestion du click sur un aliment de la listView
+     * @return
+     */
+    public AdapterView.OnItemClickListener getOnItemClickListener() {
+        return new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                // Récupération du bon aliment
+                final Food foodClicked = foodList.get(position);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                String message = "Choisir la quantité consommée.";
+                builder.setMessage(message)
+                        .setTitle(foodClicked.getUsableName());
+
+                final EditText quantityInput = new EditText(MainActivity.this);
+
+                // Bouton Valider
+                builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        // On attribue la quantité choisi à l'aliment
+                        int quantityConsumed =  Integer.parseInt(quantityInput.getText().toString());
+                        foodClicked.setQuantityConsumed(quantityConsumed);
+
+                        // On ajoute à la list d'aliments consommés l'aliment choisi
+                        userFoodList.add(foodClicked);
+
+                        // Pour débugger
+                        TextView txt = (TextView) findViewById(R.id.debugUserFoodlistSize);
+                        txt.setText(userFoodList.size() + " aliments consommés.");
+
+                        // Idéalement afficher un toast " L'aliment xxx a été ajouté ! "
+                    }
+                });
+
+                // Fermeture du Dialog
+                builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // On ferme le dialog, on fait rien actuellement.
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.setView(quantityInput);
+                dialog.show();
+            }
+        };
     }
 
     private void testORM(final RuntimeExceptionDao<Aliment, String> alimentDao, final Aliment testaliment1){
