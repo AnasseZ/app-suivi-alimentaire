@@ -2,7 +2,6 @@ package com.zoutexlexba.miage.app_suivi_alimentaire;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,20 +10,13 @@ import android.widget.TextView;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.zoutexlexba.miage.app_suivi_alimentaire.Services.Aliment;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Aliment;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
-import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodResponse;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodAdapter;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.zoutexlexba.miage.app_suivi_alimentaire.Services.Aliment;
-import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
-import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodResponse;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.HttpHandler;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 

@@ -1,4 +1,4 @@
-package com.zoutexlexba.miage.app_suivi_alimentaire.Services;
+package com.zoutexlexba.miage.app_suivi_alimentaire.Entity;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
