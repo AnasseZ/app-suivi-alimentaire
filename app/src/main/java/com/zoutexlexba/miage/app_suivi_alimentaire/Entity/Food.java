@@ -16,6 +16,9 @@ public class Food {
     @SerializedName("image_url")
     public String imageUrl;
 
+    @SerializedName("product_name")
+    public String realName;
+
     public Food() {
 
     }
@@ -23,5 +26,37 @@ public class Food {
     public Food(String name, String quantity) {
         this.name = name;
         this.quantity = quantity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 }

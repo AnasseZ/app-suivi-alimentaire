@@ -53,7 +53,13 @@ public class FoodAdapter extends ArrayAdapter<Food> {
         }
         // Populate the data from the data object via the viewHolder object
         // into the template view.
-        viewHolder.name.setText(food.name);
+
+        if (food.getName() == null) {
+            viewHolder.name.setText(food.getRealName());
+        } else {
+            viewHolder.name.setText(food.getName());
+        }
+
         viewHolder.quantity.setText(food.quantity);
         // Return the completed view to render on screen
         Picasso.with(this.getContext()).load(food.imageUrl).resize(150, 150).into(viewHolder.foodImg);
