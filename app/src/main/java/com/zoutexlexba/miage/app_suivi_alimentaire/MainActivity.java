@@ -2,6 +2,7 @@ package com.zoutexlexba.miage.app_suivi_alimentaire;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -138,6 +139,8 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                 testaliment1.setCalories(testaliment1.getCalories() + 1.0f);
                 alimentDao.update(testaliment1);
                 testv.setText(String.valueOf(testaliment1.getCalories()));
+                Intent logger = new Intent(MainActivity.this, CreaAccount.class);
+                startActivity(logger);
             }
         });
 
