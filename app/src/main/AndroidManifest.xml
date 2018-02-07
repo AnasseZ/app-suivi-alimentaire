@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zoutexlexba.miage.app_suivi_alimentaire">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,16 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="stateHidden"
-            >
+            android:name=".AlimentConsomme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreaAccount"/>
+        <activity
+            android:name=".MainActivity"
+            android:parentActivityName=".AlimentConsomme">
+        </activity>
+        <activity android:name=".CreaAccount" />
+
     </application>
 
 </manifest>

@@ -71,9 +71,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         }
 
         testORM(alimentDao, testaliment1);
-
-
-
     }
 
     /**

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Fit\'In Food</string>
     <string name="searchFoodButton">Rechercher</string>
+    <string name="title_activity_aliment_consomme">AlimentConsomme</string>
 </resources>

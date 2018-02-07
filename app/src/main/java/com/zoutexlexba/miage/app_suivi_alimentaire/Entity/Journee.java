@@ -16,9 +16,9 @@ public class Journee {
     @DatabaseField(id = true)
     private Date date_journee;
     @DatabaseField(canBeNull = false)
-    private ArrayList<Aliment> list_aliment;
+    private ArrayList<Integer> list_aliment;
     @DatabaseField(canBeNull = false)
-    private ArrayList<Repas> list_repas;
+    private ArrayList<Integer> list_repas;
 
     public Journee(){}
 
@@ -36,19 +36,19 @@ public class Journee {
         this.date_journee = date_journee;
     }
 
-    public ArrayList<Aliment> getList_aliment() {
+    public ArrayList<Integer> getList_aliment() {
         return list_aliment;
     }
 
-    public ArrayList<Repas> getList_repas() {
+    public ArrayList<Integer> getList_repas() {
         return list_repas;
     }
 
-    public void AjoutAliment(Aliment aliment){
-        list_aliment.add(aliment);
+    public void AjoutAliment(Integer id){
+        list_aliment.add(id);
     }
 
-    public void AjoutRepas(Repas repas){
-        list_repas.add(repas);
+    public void AjoutRepas(Integer id){
+        list_repas.add(id);
     }
 }
