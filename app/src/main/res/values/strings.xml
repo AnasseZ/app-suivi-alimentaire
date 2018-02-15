@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Fit\'In Food</string>
     <string name="searchFoodButton">Rechercher</string>
+    <string name="dailyactivity">Activité Journalière</string>
+    <string name="addmeal">Ajouter un aliment</string>
+    <string name="goal">Inscription</string>
+    <string name="personalinfo">Mes infos Personnelles</string>
+    <string name="imageavatar">photo de profil</string>
 </resources>

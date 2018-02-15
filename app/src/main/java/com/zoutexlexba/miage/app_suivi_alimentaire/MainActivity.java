@@ -139,8 +139,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                 testaliment1.setCalories(testaliment1.getCalories() + 1.0f);
                 alimentDao.update(testaliment1);
                 testv.setText(String.valueOf(testaliment1.getCalories()));
-                Intent logger = new Intent(MainActivity.this, CreaAccount.class);
-                startActivity(logger);
             }
         });
 
