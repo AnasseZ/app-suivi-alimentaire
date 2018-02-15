@@ -14,16 +14,17 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity android:name=".CreaAccount" />
+        <activity android:name=".Activities.GoalActivity" />
+        <activity android:name=".Activities.DailyActivity" />
+        <activity android:name=".Activities.NavigationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreaAccount" />
-        <activity android:name=".Activities.GoalActivity" />
-        <activity android:name=".Activities.DailyActivity" />
-        <activity android:name=".Activities.NavigationActivity" />
         <activity android:name=".Activities.PersonnalInfoActivity"></activity>
     </application>
 

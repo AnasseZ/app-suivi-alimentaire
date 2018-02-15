@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.zoutexlexba.miage.app_suivi_alimentaire.CreaAccount;
 import com.zoutexlexba.miage.app_suivi_alimentaire.MainActivity;
 import com.zoutexlexba.miage.app_suivi_alimentaire.R;
 
@@ -41,13 +42,13 @@ public class NavigationActivity extends AppCompatActivity {
     };
 
 
-    //Redirection vers la page des objectifs
+    //Redirection vers la page inscription pour l'instant (normalement celui des objectifs)
     private OnClickListener btgoalListener= new OnClickListener(){
 
         @Override
         public void onClick(View view) {
             Log.d("debug","Mes Objectifs");
-            Intent goalActivity = new Intent(NavigationActivity.this, GoalActivity.class);
+            Intent goalActivity = new Intent(NavigationActivity.this, CreaAccount.class);
             startActivity(goalActivity);
 
         }
