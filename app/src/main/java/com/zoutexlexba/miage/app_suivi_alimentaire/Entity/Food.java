@@ -1,6 +1,7 @@
 package com.zoutexlexba.miage.app_suivi_alimentaire.Entity;
 
 import com.google.gson.annotations.SerializedName;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.NutrimentResponse;
 
 /**
  * Created by anassezougarh on 30/01/2018.
@@ -20,6 +21,9 @@ public class Food {
     public String realName;
 
     private int quantityConsumed;
+
+    @SerializedName("nutriments")
+    private NutrimentResponse nutriment;
 
     public Food() {
 
@@ -76,5 +80,34 @@ public class Food {
         }
 
         return name;
+    }
+
+    public NutrimentResponse getNutriment() {
+        return nutriment;
+    }
+
+    public void setNutriment(NutrimentResponse nutriment) {
+        this.nutriment = nutriment;
+    }
+
+    public String getNutrimentDescription() {
+        String message = "Choisir la quantité consommée.\n";
+        return message + "" +
+                "Calories pour 100g : "
+                + this.nutriment.getEnergy_100g()
+                + "\n"
+                + "Protéines pour 100g : "
+                + this.nutriment.getProteins_100g()
+                + "\n"
+                + "Glucides pour 100g : "
+                + this.nutriment.getCarbohydrates_100g()
+                + "\n"
+                + "Lipides pour 100g : "
+                + this.nutriment.getFat_100g()
+                + "\n"
+                + "Fibres pour 100g : "
+                + this.nutriment.getFiber_100g()
+                + " "
+        ;
     }
 }

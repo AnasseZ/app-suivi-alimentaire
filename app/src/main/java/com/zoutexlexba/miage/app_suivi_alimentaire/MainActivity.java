@@ -2,7 +2,6 @@ package com.zoutexlexba.miage.app_suivi_alimentaire;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -89,9 +88,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                 final Food foodClicked = foodList.get(position);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-
-                String message = "Choisir la quantité consommée.";
-                builder.setMessage(message)
+                builder.setMessage(foodClicked.getNutrimentDescription())
                         .setTitle(foodClicked.getUsableName());
 
                 final EditText quantityInput = new EditText(MainActivity.this);
