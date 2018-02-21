@@ -14,13 +14,30 @@ public class Repas {
 
     @DatabaseField(generatedId  = true)
     private int id;
+    @DatabaseField
+    private String nom;
     @DatabaseField(canBeNull = false)
-    private ArrayList<Aliment> list_aliment;
+    private ArrayList<Integer> listConsomme;
 
     public Repas(){}
 
-    public void AjoutAliment(Aliment aliment){
-        list_aliment.add(aliment);
+    public int getId() {
+        return id;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public ArrayList<Integer> getListConsomme() {
+        return listConsomme;
+    }
+
+    public void setListConsomme(ArrayList<Integer> listConsomme) {
+        this.listConsomme = listConsomme;
+    }
 }

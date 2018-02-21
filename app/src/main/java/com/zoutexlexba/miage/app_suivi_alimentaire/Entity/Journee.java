@@ -10,45 +10,41 @@ import java.util.Date;
  * Created by Paulalex on 31/01/2018.
  */
 
-@DatabaseTable(tableName = "journee")
+@DatabaseTable(tableName = "consomme")
 public class Journee {
 
     @DatabaseField(id = true)
     private Date date_journee;
     @DatabaseField(canBeNull = false)
-    private ArrayList<Aliment> list_aliment;
+    private ArrayList<Integer> listAliment;
     @DatabaseField(canBeNull = false)
-    private ArrayList<Repas> list_repas;
+    private ArrayList<Integer> listRepas;
 
     public Journee(){}
 
     public Journee(Date jour){
         date_journee = jour;
-        list_aliment = new ArrayList<>();
-        list_repas = new ArrayList<>();
+        listAliment = new ArrayList<>();
+        listRepas = new ArrayList<>();
     }
 
     public Date getDate_journee() {
         return date_journee;
     }
 
-    public void setDate_journee(Date date_journee) {
-        this.date_journee = date_journee;
+    public ArrayList<Integer> getListAliment() {
+        return listAliment;
     }
 
-    public ArrayList<Aliment> getList_aliment() {
-        return list_aliment;
+    public void setListAliment(ArrayList<Integer> listAliment) {
+        this.listAliment = listAliment;
     }
 
-    public ArrayList<Repas> getList_repas() {
-        return list_repas;
+    public ArrayList<Integer> getListRepas() {
+        return listRepas;
     }
 
-    public void AjoutAliment(Aliment aliment){
-        list_aliment.add(aliment);
-    }
-
-    public void AjoutRepas(Repas repas){
-        list_repas.add(repas);
+    public void setListRepas(ArrayList<Integer> listRepas) {
+        this.listRepas = listRepas;
     }
 }

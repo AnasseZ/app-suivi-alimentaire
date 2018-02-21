@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Aliment;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodAdapter;
@@ -60,7 +59,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         listView.setOnItemClickListener(this.getOnItemClickListener());
 
         // get our dao
-        RuntimeExceptionDao<Aliment, String> alimentDao = getHelper().getAlimentDataDao();
+        /*RuntimeExceptionDao<Aliment, String> alimentDao = getHelper().getAlimentDataDao();
 
         Aliment testaliment1 = alimentDao.queryForId("test");
         if(testaliment1 == null){
@@ -69,7 +68,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             alimentDao.create(testaliment1);
         }
 
-        testORM(alimentDao, testaliment1);
+        testORM(alimentDao, testaliment1);*/
 
 
 
@@ -99,7 +98,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
                         // On attribue la quantité choisi à l'aliment
                         int quantityConsumed =  Integer.parseInt(quantityInput.getText().toString());
-                        foodClicked.setQuantityConsumed(quantityConsumed);
+                        //foodClicked.setQuantityConsumed(quantityConsumed);
 
                         // On ajoute à la list d'aliments consommés l'aliment choisi
                         userFoodList.add(foodClicked);
@@ -126,7 +125,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         };
     }
 
-    private void testORM(final RuntimeExceptionDao<Aliment, String> alimentDao, final Aliment testaliment1){
+    /*private void testORM(final RuntimeExceptionDao<Aliment, String> alimentDao, final Aliment testaliment1){
 
         final TextView testv = (TextView) findViewById(R.id.text_test);
         Button buttontest = (Button) findViewById(R.id.button_test);
@@ -140,7 +139,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         });
 
         testv.setText(String.valueOf(testaliment1.getCalories()));
-    }
+    }*/
 
     private class ApiCallOperation extends AsyncTask<String, Integer, String> {
 

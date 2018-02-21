@@ -1,23 +1,84 @@
 #
-# generated on 2018/01/31 11:16:59
+# generated on 2018/02/21 05:22:55
 #
 # --table-start--
-dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Aliment
+dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.AlimentConsomme
 tableName=aliment
 # --table-fields-start--
 # --field-start--
-fieldName=nom
-id=true
+fieldName=id
+generatedId=true
 # --field-end--
 # --field-start--
 fieldName=quantite
 canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=calories
+fieldName=id_food
+canBeNull=false
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food
+tableName=aliment
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
 # --field-end--
 # --field-start--
-fieldName=glucides
+fieldName=energy_100g
+# --field-end--
+# --field-start--
+fieldName=fiber_100g
+# --field-end--
+# --field-start--
+fieldName=carbohydrates_100g
+# --field-end--
+# --field-start--
+fieldName=proteins_100g
+# --field-end--
+# --field-start--
+fieldName=fat_100g
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Journee
+tableName=consomme
+# --table-fields-start--
+# --field-start--
+fieldName=date_journee
+id=true
+# --field-end--
+# --field-start--
+fieldName=listAliment
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=listRepas
+canBeNull=false
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Repas
+tableName=repas
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=nom
+# --field-end--
+# --field-start--
+fieldName=listConsomme
+canBeNull=false
 # --field-end--
 # --table-fields-end--
 # --table-end--

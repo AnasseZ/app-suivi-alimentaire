@@ -1,13 +1,20 @@
 package com.zoutexlexba.miage.app_suivi_alimentaire.Entity;
 
 import com.google.gson.annotations.SerializedName;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.NutrimentResponse;
 
 /**
  * Created by anassezougarh on 30/01/2018.
  */
 
+@DatabaseTable(tableName = "aliment")
 public class Food {
+
+    @DatabaseField(generatedId = true)
+    private Integer id;
+
     @SerializedName("product_name_fr")
     private String name;
 
@@ -20,7 +27,17 @@ public class Food {
     @SerializedName("product_name")
     public String realName;
 
-    private int quantityConsumed;
+
+    @DatabaseField
+    private int energy_100g;
+    @DatabaseField
+    private double fiber_100g;
+    @DatabaseField
+    private double carbohydrates_100g;
+    @DatabaseField
+    private double proteins_100g;
+    @DatabaseField
+    private double fat_100g;
 
     @SerializedName("nutriments")
     private NutrimentResponse nutriment;
@@ -32,6 +49,50 @@ public class Food {
     public Food(String name, String quantity) {
         this.name = name;
         this.quantity = quantity;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public int getEnergy_100g() {
+        return energy_100g;
+    }
+
+    public void setEnergy_100g(int energy_100g) {
+        this.energy_100g = energy_100g;
+    }
+
+    public double getFiber_100g() {
+        return fiber_100g;
+    }
+
+    public void setFiber_100g(double fiber_100g) {
+        this.fiber_100g = fiber_100g;
+    }
+
+    public double getCarbohydrates_100g() {
+        return carbohydrates_100g;
+    }
+
+    public void setCarbohydrates_100g(double carbohydrates_100g) {
+        this.carbohydrates_100g = carbohydrates_100g;
+    }
+
+    public double getProteins_100g() {
+        return proteins_100g;
+    }
+
+    public void setProteins_100g(double proteins_100g) {
+        this.proteins_100g = proteins_100g;
+    }
+
+    public double getFat_100g() {
+        return fat_100g;
+    }
+
+    public void setFat_100g(double fat_100g) {
+        this.fat_100g = fat_100g;
     }
 
     public String getName() {
@@ -64,14 +125,6 @@ public class Food {
 
     public void setRealName(String realName) {
         this.realName = realName;
-    }
-
-    public int getQuantityConsumed() {
-        return quantityConsumed;
-    }
-
-    public void setQuantityConsumed(int quantityConsumed) {
-        this.quantityConsumed = quantityConsumed;
     }
 
     public String getUsableName() {
