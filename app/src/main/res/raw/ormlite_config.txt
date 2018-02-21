@@ -1,9 +1,9 @@
 #
-# generated on 2018/02/21 05:22:55
+# generated on 2018/02/21 10:05:56
 #
 # --table-start--
 dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.AlimentConsomme
-tableName=aliment
+tableName=consomme
 # --table-fields-start--
 # --field-start--
 fieldName=id
@@ -15,6 +15,16 @@ canBeNull=false
 # --field-end--
 # --field-start--
 fieldName=id_food
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=type
+columnName=type
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=id_type
+columnName=id_type
 canBeNull=false
 # --field-end--
 # --table-fields-end--
@@ -48,19 +58,11 @@ fieldName=fat_100g
 #################################
 # --table-start--
 dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Journee
-tableName=consomme
+tableName=journee
 # --table-fields-start--
 # --field-start--
 fieldName=date_journee
 id=true
-# --field-end--
-# --field-start--
-fieldName=listAliment
-canBeNull=false
-# --field-end--
-# --field-start--
-fieldName=listRepas
-canBeNull=false
 # --field-end--
 # --table-fields-end--
 # --table-end--

@@ -13,12 +13,15 @@ import android.widget.TextView;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.AlimentConsomme;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Journee;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodAdapter;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.HttpHandler;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
@@ -57,21 +60,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
         listView = (ListView) findViewById(R.id.foodList);
         listView.setOnItemClickListener(this.getOnItemClickListener());
-
-        // get our dao
-        /*RuntimeExceptionDao<Aliment, String> alimentDao = getHelper().getAlimentDataDao();
-
-        Aliment testaliment1 = alimentDao.queryForId("test");
-        if(testaliment1 == null){
-            testaliment1 = new Aliment("test");
-            testaliment1.setCalories(1.0f);
-            alimentDao.create(testaliment1);
-        }
-
-        testORM(alimentDao, testaliment1);*/
-
-
-
     }
 
     /**
@@ -97,7 +85,29 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                     public void onClick(DialogInterface dialog, int id) {
 
                         // On attribue la quantité choisi à l'aliment
-                        int quantityConsumed =  Integer.parseInt(quantityInput.getText().toString());
+                        float quantityConsumed =  Float.parseFloat(quantityInput.getText().toString());
+
+                        //persistance du choix
+                        //persistance de la classe food
+                        RuntimeExceptionDao<Food, Integer> foodDao = getHelper().getFoodRuntimeDao();
+                        foodDao.update(foodClicked);
+
+                        //ajout de la journee
+                        RuntimeExceptionDao<Journee, String> journeeDao = getHelper().getJourneeRuntimeDao();
+                        Journee currentJournee = journeeDao.queryForId(getIntent().getStringExtra("Date"));
+                        if(currentJournee == null){
+                            currentJournee = new Journee(getIntent().getStringExtra("Date"));
+                            journeeDao.create(currentJournee);
+                        }
+
+                        //ajout de la consomation
+                        RuntimeExceptionDao<AlimentConsomme, Integer> consommeDao = getHelper().getConsommeDataDao();
+
+                        AlimentConsomme ajoutConsommation= new AlimentConsomme(quantityConsumed,foodClicked.getId());
+                        ajoutConsommation.setType("journee");
+                        //ajoutConsommation.setId_food(currentJournee.getDate_journee());
+                        consommeDao.create(ajoutConsommation);
+
                         //foodClicked.setQuantityConsumed(quantityConsumed);
 
                         // On ajoute à la list d'aliments consommés l'aliment choisi
@@ -124,22 +134,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             }
         };
     }
-
-    /*private void testORM(final RuntimeExceptionDao<Aliment, String> alimentDao, final Aliment testaliment1){
-
-        final TextView testv = (TextView) findViewById(R.id.text_test);
-        Button buttontest = (Button) findViewById(R.id.button_test);
-
-        buttontest.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                testaliment1.setCalories(testaliment1.getCalories() + 1.0f);
-                alimentDao.update(testaliment1);
-                testv.setText(String.valueOf(testaliment1.getCalories()));
-            }
-        });
-
-        testv.setText(String.valueOf(testaliment1.getCalories()));
-    }*/
 
     private class ApiCallOperation extends AsyncTask<String, Integer, String> {
 

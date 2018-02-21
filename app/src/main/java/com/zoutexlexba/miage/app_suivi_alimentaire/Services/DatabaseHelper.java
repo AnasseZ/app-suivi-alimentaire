@@ -37,14 +37,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<AlimentConsomme, Integer> consommeDao = null;
     private RuntimeExceptionDao<AlimentConsomme, Integer> consommeRuntimeDao = null;
 
-    private Dao<Journee, Date> journeeDao = null;
-    private RuntimeExceptionDao<Journee, Date> journeeRuntimeDao = null;
+    private Dao<Journee, String> journeeDao = null;
+    private RuntimeExceptionDao<Journee, String> journeeRuntimeDao = null;
 
     private Dao<Repas, Integer> repasDao = null;
     private RuntimeExceptionDao<Repas, Integer> repasRuntimeDao = null;
 
     public DatabaseHelper(Context context){
-        super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return foodDao;
     }
 
-    public Dao<Journee, Date> getJourneeDao() throws SQLException {
+    public Dao<Journee, String> getJourneeDao() throws SQLException {
         if (journeeDao == null) {
             journeeDao = getDao(Journee.class);
         }
@@ -127,7 +127,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return consommeRuntimeDao;
     }
 
-    public RuntimeExceptionDao<Journee, Date> getJourneeRuntimeDao() {
+    public RuntimeExceptionDao<Journee, String> getJourneeRuntimeDao() {
         if (journeeRuntimeDao == null) {
             journeeRuntimeDao = getRuntimeExceptionDao(Journee.class);
         }
