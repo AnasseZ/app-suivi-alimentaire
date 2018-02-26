@@ -9,17 +9,15 @@ import java.util.ArrayList;
  * Created by Paulalex on 31/01/2018.
  */
 
-@DatabaseTable(tableName = "repas")
-public class Repas {
+@DatabaseTable(tableName = "meal")
+public class Meal {
 
     @DatabaseField(generatedId  = true)
     private int id;
     @DatabaseField
     private String nom;
-    @DatabaseField(canBeNull = false)
-    private ArrayList<Integer> listConsomme;
 
-    public Repas(){}
+    public Meal(){}
 
     public int getId() {
         return id;
@@ -31,13 +29,5 @@ public class Repas {
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    public ArrayList<Integer> getListConsomme() {
-        return listConsomme;
-    }
-
-    public void setListConsomme(ArrayList<Integer> listConsomme) {
-        this.listConsomme = listConsomme;
     }
 }

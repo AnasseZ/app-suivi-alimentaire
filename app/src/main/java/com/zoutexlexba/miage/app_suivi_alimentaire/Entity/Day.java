@@ -10,15 +10,19 @@ import java.util.Date;
  * Created by Paulalex on 31/01/2018.
  */
 
-@DatabaseTable(tableName = "journee")
-public class Journee {
+@DatabaseTable(tableName = "day")
+public class Day {
+
+    @DatabaseField(generatedId = true)
+    private Integer id;
+    
     //format de la date en jj/mm/yyyy
-    @DatabaseField(id = true)
+    @DatabaseField(canBeNull = false)
     private String date_journee;
 
-    public Journee(){}
+    public Day(){}
 
-    public Journee(String jour){
+    public Day(String jour){
         date_journee = jour;
     }
 

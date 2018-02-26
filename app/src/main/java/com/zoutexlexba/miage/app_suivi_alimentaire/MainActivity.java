@@ -13,15 +13,14 @@ import android.widget.TextView;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.AlimentConsomme;
-import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Journee;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Day;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodAdapter;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.HttpHandler;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
@@ -93,19 +92,19 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                         foodDao.update(foodClicked);
 
                         //ajout de la journee
-                        RuntimeExceptionDao<Journee, String> journeeDao = getHelper().getJourneeRuntimeDao();
-                        Journee currentJournee = journeeDao.queryForId(getIntent().getStringExtra("Date"));
-                        if(currentJournee == null){
-                            currentJournee = new Journee(getIntent().getStringExtra("Date"));
-                            journeeDao.create(currentJournee);
+                        RuntimeExceptionDao<Day, String> journeeDao = getHelper().getJourneeRuntimeDao();
+                        Day currentDay = journeeDao.queryForId(getIntent().getStringExtra("Date"));
+                        if(currentDay == null){
+                            currentDay = new Day(getIntent().getStringExtra("Date"));
+                            journeeDao.create(currentDay);
                         }
 
                         //ajout de la consomation
-                        RuntimeExceptionDao<AlimentConsomme, Integer> consommeDao = getHelper().getConsommeDataDao();
+                        RuntimeExceptionDao<FoodConsumed, Integer> consommeDao = getHelper().getConsommeDataDao();
 
-                        AlimentConsomme ajoutConsommation= new AlimentConsomme(quantityConsumed,foodClicked.getId());
+                        FoodConsumed ajoutConsommation= new FoodConsumed(quantityConsumed,foodClicked.getId());
                         ajoutConsommation.setType("journee");
-                        //ajoutConsommation.setId_food(currentJournee.getDate_journee());
+                        //ajoutConsommation.setIdFood(currentJournee.getDate_journee());
                         consommeDao.create(ajoutConsommation);
 
                         //foodClicked.setQuantityConsumed(quantityConsumed);
