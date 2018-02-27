@@ -12,22 +12,19 @@ import java.util.Date;
 
 @DatabaseTable(tableName = "day")
 public class Day {
+    public static final String DATE_JOURNEE = "date_journee";
 
-    @DatabaseField(generatedId = true)
-    private Integer id;
-    
     //format de la date en jj/mm/yyyy
-    @DatabaseField(canBeNull = false)
-    private String date_journee;
+    @DatabaseField(id = true)
+    private String dateJournee;
 
     public Day(){}
 
     public Day(String jour){
-        date_journee = jour;
+        dateJournee = jour;
     }
 
-    public String getDate_journee() {
-        return date_journee;
+    public String getDateJournee() {
+        return dateJournee;
     }
-
 }

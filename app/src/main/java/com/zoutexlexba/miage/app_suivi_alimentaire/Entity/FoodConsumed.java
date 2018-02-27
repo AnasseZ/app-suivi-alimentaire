@@ -11,7 +11,8 @@ import com.j256.ormlite.table.DatabaseTable;
 public class FoodConsumed {
 
     public static final String TYPE = "type";
-    public static final String ID_TYPE = "idType";
+    public static final String ID_MEAL = "idMeal";
+    public static final String ID_DAY = "idDay";
 
     @DatabaseField(generatedId = true)
     private Integer id;
@@ -19,10 +20,16 @@ public class FoodConsumed {
     private float quantity;
     @DatabaseField(canBeNull = false)
     private Integer idFood;
-    @DatabaseField(canBeNull = false, columnName = TYPE)
+    //day or meal
+    @DatabaseField(canBeNull = false,columnName = TYPE)
     private String type;
-    @DatabaseField(canBeNull = false, columnName = ID_TYPE)
-    private Integer idType;
+    //id of tuple meal
+    @DatabaseField(columnName = ID_MEAL)
+    private Integer idMeal;
+    //id of tuple day
+    @DatabaseField(columnName = ID_DAY)
+    private String dateJour;
+
 
 
     public FoodConsumed(){ }
@@ -31,6 +38,21 @@ public class FoodConsumed {
         this.quantity = quantity;
         this.idFood = id;
     }
+
+    public FoodConsumed(float quantity, Integer idFood, String type, Integer idMeal){
+        this.quantity = quantity;
+        this.idFood = idFood;
+        this.type = type;
+        this.idMeal = idMeal;
+    }
+
+    public FoodConsumed(float quantity, Integer idFood, String type, String idDay){
+        this.quantity = quantity;
+        this.idFood = idFood;
+        this.type = type;
+        this.dateJour = idDay;
+    }
+
 
     public Integer getId() {
         return id;
@@ -60,11 +82,19 @@ public class FoodConsumed {
         this.type = type;
     }
 
-    public Integer getId_type() {
-        return idType;
+    public Integer getIdMeal() {
+        return idMeal;
     }
 
-    public void setId_type(Integer id_type) {
-        this.idType = id_type;
+    public void setIdMeal(Integer idMeal) {
+        this.idMeal = idMeal;
+    }
+
+    public String getDateJour() {
+        return dateJour;
+    }
+
+    public void setDateJour(String dateJour) {
+        this.dateJour = dateJour;
     }
 }

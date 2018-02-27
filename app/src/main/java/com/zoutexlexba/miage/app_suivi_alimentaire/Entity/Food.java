@@ -13,7 +13,7 @@ import com.zoutexlexba.miage.app_suivi_alimentaire.Services.NutrimentResponse;
 public class Food {
 
     @DatabaseField(generatedId = true)
-    private Integer id;
+    private Integer idFood;
 
     @DatabaseField
     @SerializedName("product_name_fr")
@@ -30,27 +30,22 @@ public class Food {
 
 
     @DatabaseField
-    @SerializedName("energy_100g")
     private int energy_100g;
 
     @DatabaseField
-    @SerializedName("fiber_100g")
     private double fiber_100g;
 
     @DatabaseField
-    @SerializedName("carbohydrates_100g")
     private double carbohydrates_100g;
 
     @DatabaseField
-    @SerializedName("proteins_100g")
     private double proteins_100g;
 
     @DatabaseField
-    @SerializedName("fat_100g")
     private double fat_100g;
 
-    /*@SerializedName("nutriments")
-    private NutrimentResponse nutriment;*/
+    @SerializedName("nutriments")
+    private NutrimentResponse nutriment;
 
     public Food() {
 
@@ -62,7 +57,7 @@ public class Food {
     }
 
     public Integer getId() {
-        return id;
+        return idFood;
     }
 
     public int getEnergy_100g() {
@@ -145,7 +140,7 @@ public class Food {
         return name;
     }
 
-    /*public NutrimentResponse getNutriment() {
+    public NutrimentResponse getNutriment() {
         return nutriment;
     }
 
@@ -172,26 +167,5 @@ public class Food {
                 + this.nutriment.getFiber_100g()
                 + " "
         ;
-    }*/
-
-    public String getNutrimentDescription() {
-        String message = "Choisir la quantité consommée.\n";
-        return message + "" +
-                "Calories pour 100g : "
-                + this.getEnergy_100g()
-                + "\n"
-                + "Protéines pour 100g : "
-                + this.getProteins_100g()
-                + "\n"
-                + "Glucides pour 100g : "
-                + this.getCarbohydrates_100g()
-                + "\n"
-                + "Lipides pour 100g : "
-                + this.getFat_100g()
-                + "\n"
-                + "Fibres pour 100g : "
-                + this.getFiber_100g()
-                + " "
-                ;
     }
 }

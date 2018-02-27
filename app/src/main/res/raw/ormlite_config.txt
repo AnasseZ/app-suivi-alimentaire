@@ -1,5 +1,5 @@
 #
-# generated on 2018/02/26 07:15:33
+# generated on 2018/02/27 05:15:15
 #
 # --table-start--
 dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed
@@ -23,9 +23,12 @@ columnName=type
 canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=idType
-columnName=idType
-canBeNull=false
+fieldName=idMeal
+columnName=idMeal
+# --field-end--
+# --field-start--
+fieldName=dateJour
+columnName=idDay
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -35,8 +38,11 @@ dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food
 tableName=food
 # --table-fields-start--
 # --field-start--
-fieldName=id
+fieldName=idFood
 generatedId=true
+# --field-end--
+# --field-start--
+fieldName=name
 # --field-end--
 # --field-start--
 fieldName=energy_100g
@@ -61,12 +67,8 @@ dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Day
 tableName=day
 # --table-fields-start--
 # --field-start--
-fieldName=id
-generatedId=true
-# --field-end--
-# --field-start--
-fieldName=date_journee
-canBeNull=false
+fieldName=dateJournee
+id=true
 # --field-end--
 # --table-fields-end--
 # --table-end--

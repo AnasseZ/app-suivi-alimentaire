@@ -43,14 +43,12 @@ public class DailyActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             journeeDao.create(currentJournee);
         }
 
-
-
         List<FoodConsumed> listConso = null;
         RuntimeExceptionDao<FoodConsumed, Integer> consommeDao = getHelper().getConsommeDataDao();
         QueryBuilder<FoodConsumed, Integer> queryBuilder = consommeDao.queryBuilder();
 
         try {
-            queryBuilder.where().eq(FoodConsumed.ID_TYPE,dateStr);
+            queryBuilder.where().eq(FoodConsumed.ID_DAY,dateStr);
             PreparedQuery<FoodConsumed> preparedQuery = queryBuilder.prepare();
             listConso= consommeDao.query(preparedQuery);
         } catch (SQLException e) {
