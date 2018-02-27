@@ -4,6 +4,183 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zoutexlexba.miage.app_suivi_alimentaire.Activities.GoalActivity">
+    tools:context="com.zoutexlexba.miage.app_suivi_alimentaire.Activities.GoalActivity"
+    tools:layout_editor_absoluteY="81dp">
+
+    <TextView
+        android:id="@+id/energyTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:text="Calories"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarEnergyGoal"
+        app:layout_constraintStart_toStartOf="@+id/progressBarEnergyGoal" />
+
+    <TextView
+        android:id="@+id/energyConsumedToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="1800"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarEnergyGoal"
+        app:layout_constraintEnd_toStartOf="@+id/energyGoalToday" />
+
+    <TextView
+        android:id="@+id/energyGoalToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="/ 2300"
+        android:layout_marginRight="40dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/energyConsumedToday"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBarEnergyGoal"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="200dp"
+        android:progress="90"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/proteinTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:layout_marginTop="20dp"
+        android:text="Protéines"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarProteinGoal"
+        app:layout_constraintStart_toStartOf="@+id/progressBarProteinGoal" />
+
+    <TextView
+        android:id="@+id/proteinConsumedToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="1800"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarProteinGoal"
+        app:layout_constraintEnd_toStartOf="@+id/proteinGoalToday" />
+
+    <TextView
+        android:id="@+id/proteinGoalToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="/ 2300"
+        android:layout_marginRight="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarProteinGoal"
+        app:layout_constraintBaseline_toBaselineOf="@+id/proteinConsumedToday"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+    <ProgressBar
+        android:id="@+id/progressBarProteinGoal"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="250dp"
+        android:progress="90"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/carbTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:layout_marginTop="20dp"
+        android:text="Glucides"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarCarbGoal"
+        app:layout_constraintStart_toStartOf="@+id/progressBarCarbGoal" />
+
+    <TextView
+        android:id="@+id/carbConsumedToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="1800"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarCarbGoal"
+        app:layout_constraintEnd_toStartOf="@+id/carbGoalToday" />
+
+    <TextView
+        android:id="@+id/carbGoalToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="/ 2300"
+        android:layout_marginRight="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarCarbGoal"
+        app:layout_constraintBaseline_toBaselineOf="@+id/carbConsumedToday"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+    <ProgressBar
+        android:id="@+id/progressBarCarbGoal"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="300dp"
+        android:progress="90"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fiberTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:layout_marginTop="20dp"
+        android:text="Fibres"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarFiberGoal"
+        app:layout_constraintStart_toStartOf="@+id/progressBarFiberGoal" />
+
+    <TextView
+        android:id="@+id/fiberConsumedToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="1800"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarFiberGoal"
+        app:layout_constraintEnd_toStartOf="@+id/fiberGoalToday" />
+
+    <TextView
+        android:id="@+id/fiberGoalToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="/ 2300"
+        android:layout_marginRight="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarFiberGoal"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fiberConsumedToday"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+    <ProgressBar
+        android:id="@+id/progressBarFiberGoal"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="350dp"
+        android:progress="90"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

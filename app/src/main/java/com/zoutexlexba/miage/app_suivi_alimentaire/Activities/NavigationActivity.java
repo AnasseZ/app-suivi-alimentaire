@@ -20,14 +20,16 @@ public class NavigationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_navigation);
 
         Button btdailyactivity = (Button) findViewById(R.id.btdailyactivity);
-        Button btgoal = (Button) findViewById(R.id.btgoal);
+        Button btgoal = (Button) findViewById(R.id.btngoalNavigation);
         Button btaddmeal = (Button) findViewById(R.id.btaddmeal);
         Button btpersonnalinfo = (Button) findViewById(R.id.btpersonalinfo);
+        Button btInscription = (Button) findViewById(R.id.btinscription);
 
         btdailyactivity.setOnClickListener(btdailyactivityListener);
         btgoal.setOnClickListener(btgoalListener);
         btaddmeal.setOnClickListener(btaddmealListener);
         btpersonnalinfo.setOnClickListener(btpersonnalinfoListener);
+        btInscription.setOnClickListener(btInscriptionListener);
     }
 
     //Redirection vers la page Activité journalière
@@ -48,7 +50,7 @@ public class NavigationActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Log.d("debug","Mes Objectifs");
-            Intent goalActivity = new Intent(NavigationActivity.this, CreaAccount.class);
+            Intent goalActivity = new Intent(NavigationActivity.this, GoalActivity.class);
             startActivity(goalActivity);
 
         }
@@ -82,4 +84,15 @@ public class NavigationActivity extends AppCompatActivity {
             }
         };
     }
+
+    //Redirection vers la page Activité journalière
+    private OnClickListener btInscriptionListener= new OnClickListener(){
+
+        @Override
+        public void onClick(View view) {
+            Log.d("debug","Inscription");
+            Intent intent = new Intent (NavigationActivity.this, CreaAccount.class);
+            startActivity(intent);
+        }
+    };
 }
