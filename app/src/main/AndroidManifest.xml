@@ -11,13 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="stateHidden">
-        </activity>
         <activity android:name=".CreaAccount" />
         <activity android:name=".Activities.GoalActivity" />
-        <activity android:name=".Activities.DailyActivity" />
+        <activity android:name=".Activities.DailyActivity"
+            android:parentActivityName=".Activities.NavigationActivity"/>
         <activity android:name=".Activities.NavigationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.PersonnalInfoActivity"></activity>
+        <activity android:name=".Activities.PersonnalInfoActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".Activities.DailyActivity" />
     </application>
 
 </manifest>

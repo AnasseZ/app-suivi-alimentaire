@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.zoutexlexba.miage.app_suivi_alimentaire.CreaAccount;
 import com.zoutexlexba.miage.app_suivi_alimentaire.MainActivity;
 import com.zoutexlexba.miage.app_suivi_alimentaire.R;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
 
-public class NavigationActivity extends AppCompatActivity {
+public class NavigationActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -9,18 +9,25 @@ import java.util.ArrayList;
  * Created by Paulalex on 31/01/2018.
  */
 
-@DatabaseTable(tableName = "repas")
-public class Repas {
+@DatabaseTable(tableName = "meal")
+public class Meal {
 
     @DatabaseField(generatedId  = true)
     private int id;
-    @DatabaseField(canBeNull = false)
-    private ArrayList<Aliment> list_aliment;
+    @DatabaseField
+    private String nom;
 
-    public Repas(){}
+    public Meal(){}
 
-    public void AjoutAliment(Aliment aliment){
-        list_aliment.add(aliment);
+    public int getId() {
+        return id;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 }

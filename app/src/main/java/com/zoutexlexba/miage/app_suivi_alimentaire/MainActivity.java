@@ -2,6 +2,7 @@ package com.zoutexlexba.miage.app_suivi_alimentaire;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -13,19 +14,24 @@ import android.widget.TextView;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Aliment;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Activities.DailyActivity;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Day;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodAdapter;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.HttpHandler;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     private String foodName;
 
-    private String URL_1 = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=";
+    private String URL_1 = "https://fr.openfoodfacts.org/cgi/search.pl?search_terms=";
     private String URL_2 = "&search_simple=1&action=process&json=1";
 
     public HttpHandler httpHandler = new HttpHandler();
@@ -58,21 +64,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
         listView = (ListView) findViewById(R.id.foodList);
         listView.setOnItemClickListener(this.getOnItemClickListener());
-
-        // get our dao
-        RuntimeExceptionDao<Aliment, String> alimentDao = getHelper().getAlimentDataDao();
-
-        Aliment testaliment1 = alimentDao.queryForId("test");
-        if(testaliment1 == null){
-            testaliment1 = new Aliment("test");
-            testaliment1.setCalories(1.0f);
-            alimentDao.create(testaliment1);
-        }
-
-        testORM(alimentDao, testaliment1);
-
-
-
     }
 
     /**
@@ -98,16 +89,39 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                     public void onClick(DialogInterface dialog, int id) {
 
                         // On attribue la quantité choisi à l'aliment
-                        int quantityConsumed =  Integer.parseInt(quantityInput.getText().toString());
-                        foodClicked.setQuantityConsumed(quantityConsumed);
+                        float quantityConsumed =  Float.parseFloat(quantityInput.getText().toString());
 
+                        //persistance du choix
+                        //persistance de la classe food
+                        RuntimeExceptionDao<Food, Integer> foodDao = getHelper().getFoodRuntimeDao();
+                        foodClicked.initializeDataNutriment();
+                        foodDao.create(foodClicked);
+
+                        //ajout de la journee
+                        RuntimeExceptionDao<Day, String> journeeDao = getHelper().getJourneeRuntimeDao();
+                        Day currentDay = journeeDao.queryForId(getIntent().getStringExtra("Date"));
+                        if(currentDay == null){
+                            currentDay = new Day(getIntent().getStringExtra("Date"));
+                            journeeDao.create(currentDay);
+                        }
+
+
+                        //ajout de la consomation
+                        RuntimeExceptionDao<FoodConsumed, Integer> consommeDao = getHelper().getConsommeDataDao();
+
+                        FoodConsumed ajoutConsommation= new FoodConsumed(quantityConsumed,foodClicked.getId(),"day", currentDay.getDateJournee());
+                        consommeDao.create(ajoutConsommation);
+
+                        Intent intent = new Intent(MainActivity.this, DailyActivity.class);
+                        startActivity(intent);
+                        finish();
+
+                        //foodClicked.setQuantityConsumed(quantityConsumed);
                         // On ajoute à la list d'aliments consommés l'aliment choisi
-                        userFoodList.add(foodClicked);
-
+                        //userFoodList.add(foodClicked);
                         // Pour débugger
-                        TextView txt = (TextView) findViewById(R.id.debugUserFoodlistSize);
-                        txt.setText(userFoodList.size() + " aliments consommés.");
-
+                        //TextView txt = (TextView) findViewById(R.id.debugUserFoodlistSize);
+                        //txt.setText(userFoodList.size() + " aliments consommés.");
                         // Idéalement afficher un toast " L'aliment xxx a été ajouté ! "
                     }
                 });
@@ -124,22 +138,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                 dialog.show();
             }
         };
-    }
-
-    private void testORM(final RuntimeExceptionDao<Aliment, String> alimentDao, final Aliment testaliment1){
-
-        final TextView testv = (TextView) findViewById(R.id.text_test);
-        Button buttontest = (Button) findViewById(R.id.button_test);
-
-        buttontest.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                testaliment1.setCalories(testaliment1.getCalories() + 1.0f);
-                alimentDao.update(testaliment1);
-                testv.setText(String.valueOf(testaliment1.getCalories()));
-            }
-        });
-
-        testv.setText(String.valueOf(testaliment1.getCalories()));
     }
 
     private class ApiCallOperation extends AsyncTask<String, Integer, String> {
@@ -171,8 +169,8 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            TextView txt = (TextView) findViewById(R.id.outputGson);
-            txt.setText(result);
+            /*TextView txt = (TextView) findViewById(R.id.outputGson);
+            txt.setText(result);*/
 
             foodAdapter = new FoodAdapter(MainActivity.this, foodList);
             listView.setAdapter(foodAdapter);
