@@ -8,7 +8,19 @@
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="cursive"
+        android:text="Statistiques journalières"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:textColor="#FF4F46"
+        android:gravity="center_horizontal"/>
+
+
+    <TextView
         android:id="@+id/energyTitle"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="9dp"
@@ -50,6 +62,7 @@
 
     <TextView
         android:id="@+id/proteinTitle"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="9dp"
@@ -95,6 +108,7 @@
 
     <TextView
         android:id="@+id/carbTitle"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="9dp"
@@ -140,6 +154,7 @@
 
     <TextView
         android:id="@+id/fatTitle"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="9dp"
@@ -185,6 +200,7 @@
 
     <TextView
         android:id="@+id/fiberTitle"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="9dp"
