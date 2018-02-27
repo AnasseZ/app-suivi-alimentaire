@@ -48,12 +48,19 @@ public class Food {
     private NutrimentResponse nutriment;
 
     public Food() {
-
     }
 
     public Food(String name, String quantity) {
         this.name = name;
         this.quantity = quantity;
+    }
+
+    public void initializeDataNutriment(){
+        this.energy_100g = nutriment.getEnergy_100g();
+        this.fiber_100g = nutriment.getFiber_100g();
+        this.carbohydrates_100g = nutriment.getCarbohydrates_100g();
+        this.proteins_100g = nutriment.getProteins_100g();
+        this.fat_100g = nutriment.getFat_100g();
     }
 
     public Integer getId() {

@@ -94,6 +94,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                         //persistance du choix
                         //persistance de la classe food
                         RuntimeExceptionDao<Food, Integer> foodDao = getHelper().getFoodRuntimeDao();
+                        foodClicked.initializeDataNutriment();
                         foodDao.create(foodClicked);
 
                         //ajout de la journee
