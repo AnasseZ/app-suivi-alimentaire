@@ -1,23 +1,88 @@
 #
-# generated on 2018/01/31 11:16:59
+# generated on 2018/02/27 05:15:15
 #
 # --table-start--
-dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Aliment
-tableName=aliment
+dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed
+tableName=foodconsumed
 # --table-fields-start--
 # --field-start--
-fieldName=nom
-id=true
+fieldName=id
+generatedId=true
 # --field-end--
 # --field-start--
-fieldName=quantite
+fieldName=quantity
 canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=calories
+fieldName=idFood
+canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=glucides
+fieldName=type
+columnName=type
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=idMeal
+columnName=idMeal
+# --field-end--
+# --field-start--
+fieldName=dateJour
+columnName=idDay
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food
+tableName=food
+# --table-fields-start--
+# --field-start--
+fieldName=idFood
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=energy_100g
+# --field-end--
+# --field-start--
+fieldName=fiber_100g
+# --field-end--
+# --field-start--
+fieldName=carbohydrates_100g
+# --field-end--
+# --field-start--
+fieldName=proteins_100g
+# --field-end--
+# --field-start--
+fieldName=fat_100g
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Day
+tableName=day
+# --table-fields-start--
+# --field-start--
+fieldName=dateJournee
+id=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Meal
+tableName=meal
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=nom
 # --field-end--
 # --table-fields-end--
 # --table-end--
