@@ -14,6 +14,9 @@ import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
 import com.zoutexlexba.miage.app_suivi_alimentaire.MainActivity;
 import com.zoutexlexba.miage.app_suivi_alimentaire.R;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.DayRepository;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.FoodConsumedRepository;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.FoodRepository;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodAdapter;
 
@@ -29,6 +32,10 @@ public class DailyActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private FoodAdapter foodAdapter;
     private ListView listView;
 
+    private FoodConsumedRepository foodConsumedRepository;
+    private FoodRepository foodRepository;
+    private DayRepository dayRepository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,31 +43,15 @@ public class DailyActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
         listView = (ListView) findViewById(R.id.foodList);
 
-        RuntimeExceptionDao<Day, String> journeeDao = getHelper().getJourneeRuntimeDao();
-        Day currentJournee =  journeeDao.queryForId(dateStr);
-        if(currentJournee == null) {
-            currentJournee = new Day(dateStr);
-            journeeDao.create(currentJournee);
-        }
+        foodConsumedRepository = new FoodConsumedRepository();
+        foodRepository = new FoodRepository();
+        dayRepository = new DayRepository();
 
-        List<FoodConsumed> listConso = null;
-        RuntimeExceptionDao<FoodConsumed, Integer> consommeDao = getHelper().getConsommeDataDao();
-        QueryBuilder<FoodConsumed, Integer> queryBuilder = consommeDao.queryBuilder();
+        Day currentJournee = dayRepository.findDayByDate(dateStr, getHelper());
 
-        try {
-            queryBuilder.where().eq(FoodConsumed.ID_DAY,dateStr);
-            PreparedQuery<FoodConsumed> preparedQuery = queryBuilder.prepare();
-            listConso= consommeDao.query(preparedQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        List<FoodConsumed> listConso = foodConsumedRepository.findFoodConsumedByDate(dateStr,getHelper());
+        foodList = foodRepository.findFoodById(listConso, getHelper());
 
-        RuntimeExceptionDao<Food, Integer> foodDao = getHelper().getFoodRuntimeDao();
-        foodList = new ArrayList<Food>();
-        for(int i = 0; i < listConso.size(); i++){
-            Food toAdd = foodDao.queryForId(listConso.get(i).getIdFood());
-            foodList.add(toAdd);
-        }
 
         foodAdapter = new FoodAdapter(DailyActivity.this, foodList);
         listView.setAdapter(foodAdapter);

@@ -20,7 +20,7 @@ public class NutrimentsCalculator {
         // Récupération du dernier aliment ajoutée à la consommation journalière
         Food food = dailyReport.getListFood().get(dailyReport.getListFood().size() -1);
 
-        double ratio = food.getQuantityConsumed() / 100;
+        double ratio = 1000 / 100;
         dailyReport.setEnergyConsumed((int)(food.getNutriment().getEnergy_100g() * ratio));
         dailyReport.setCarbohydratesConsumed(food.getNutriment().getCarbohydrates_100g() * ratio);
         dailyReport.setFatConsumed(food.getNutriment().getFat_100g() * ratio);
@@ -29,22 +29,22 @@ public class NutrimentsCalculator {
     }
 
     public int getEnergyPercentage(DailyReport dailyReport) {
-        return dailyReport.getEnergyConsumed() / dailyReport.getEneryGoal();
+        return dailyReport.getEnergyConsumed() == 0 ? 0 : dailyReport.getEnergyConsumed() / dailyReport.getEneryGoal();
     }
 
     public int getProteinPercentage(DailyReport dailyReport) {
-        return (int)(dailyReport.getProteinConsumed() / dailyReport.getProteinGoal());
+        return dailyReport.getProteinConsumed() == 0 ? 0 : (int)(dailyReport.getProteinConsumed() / dailyReport.getProteinGoal());
     }
 
     public int getCarbPercentage(DailyReport dailyReport) {
-        return (int)(dailyReport.getCarbohydratesConsumed() / dailyReport.getCarbohydratesGoal());
+        return dailyReport.getCarbohydratesConsumed() == 0 ? 0 : (int)(dailyReport.getCarbohydratesConsumed() / dailyReport.getCarbohydratesGoal());
     }
 
     public int getFatPercentage(DailyReport dailyReport) {
-        return (int)(dailyReport.getFatConsumed() / dailyReport.getFatGoal());
+        return dailyReport.getFatConsumed() == 0 ? 0 : (int)(dailyReport.getFatConsumed() / dailyReport.getFatGoal());
     }
 
     public int getFiberPercentage(DailyReport dailyReport) {
-        return (int)(dailyReport.getFiberConsumed() / dailyReport.getFiberGoal());
+        return dailyReport.getFiberConsumed() == 0 ? 0 : (int)(dailyReport.getFiberConsumed() / dailyReport.getFiberGoal());
     }
 }
