@@ -27,4 +27,24 @@ public class NutrimentsCalculator {
         dailyReport.setProteinConsumed(food.getNutriment().getProteins_100g() * ratio);
         dailyReport.setFiberConsumed(food.getNutriment().getFiber_100g() * ratio);
     }
+
+    public int getEnergyPercentage(DailyReport dailyReport) {
+        return dailyReport.getEnergyConsumed() / dailyReport.getEneryGoal();
+    }
+
+    public int getProteinPercentage(DailyReport dailyReport) {
+        return (int)(dailyReport.getProteinConsumed() / dailyReport.getProteinGoal());
+    }
+
+    public int getCarbPercentage(DailyReport dailyReport) {
+        return (int)(dailyReport.getCarbohydratesConsumed() / dailyReport.getCarbohydratesGoal());
+    }
+
+    public int getFatPercentage(DailyReport dailyReport) {
+        return (int)(dailyReport.getFatConsumed() / dailyReport.getFatGoal());
+    }
+
+    public int getFiberPercentage(DailyReport dailyReport) {
+        return (int)(dailyReport.getFiberConsumed() / dailyReport.getFiberGoal());
+    }
 }

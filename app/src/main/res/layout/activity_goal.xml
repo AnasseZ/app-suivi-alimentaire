@@ -139,6 +139,51 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/fatTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:layout_marginTop="20dp"
+        android:text="Lipides"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarFatGoal"
+        app:layout_constraintStart_toStartOf="@+id/progressBarFatGoal" />
+
+    <TextView
+        android:id="@+id/fatConsumedToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="1800"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarFatGoal"
+        app:layout_constraintEnd_toStartOf="@+id/fatGoalToday" />
+
+    <TextView
+        android:id="@+id/fatGoalToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="/ 2300"
+        android:layout_marginRight="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarFatGoal"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fatConsumedToday"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+    <ProgressBar
+        android:id="@+id/progressBarFatGoal"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="350dp"
+        android:progress="90"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/fiberTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -176,7 +221,7 @@
         android:layout_height="5dp"
         android:layout_marginEnd="42dp"
         android:layout_marginStart="42dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="400dp"
         android:progress="90"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

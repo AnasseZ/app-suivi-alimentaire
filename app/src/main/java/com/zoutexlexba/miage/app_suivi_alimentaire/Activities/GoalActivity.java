@@ -13,8 +13,21 @@ public class GoalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal);
 
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBarEnergyGoal);
+        ProgressBar energyGoal = (ProgressBar) findViewById(R.id.progressBarEnergyGoal);
+        ProgressBar proteinGoal = (ProgressBar) findViewById(R.id.progressBarProteinGoal);
+        ProgressBar carbGoal = (ProgressBar) findViewById(R.id.progressBarCarbGoal);
+        ProgressBar fatGoal = (ProgressBar) findViewById(R.id.progressBarFatGoal);
+        ProgressBar fiberGoal = (ProgressBar) findViewById(R.id.progressBarFiberGoal);
 
-        progressBar.setProgress(75);
+        // Récupérer l'utilisateur par l'intent appelant cette activité
+        //User user = getIntent().getIntExtra("name_of_extra", -1);
+
+        // Puis utiliser le dailyReport pour afficher les bons
+        //DailyReport dailyReport = user.getDailyReport();
+        energyGoal.setProgress(75);
+        proteinGoal.setProgress(90);
+        carbGoal.setProgress(48);
+        fatGoal.setProgress(70);
+        fiberGoal.setProgress(15);
     }
 }
