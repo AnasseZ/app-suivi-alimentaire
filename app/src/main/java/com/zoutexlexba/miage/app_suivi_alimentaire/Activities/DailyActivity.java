@@ -48,14 +48,11 @@ public class DailyActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         dayRepository = new DayRepository();
 
         Day currentJournee = dayRepository.findDayByDate(dateStr, getHelper());
-
         List<FoodConsumed> listConso = foodConsumedRepository.findFoodConsumedByDate(dateStr,getHelper());
         foodList = foodRepository.findFoodById(listConso, getHelper());
 
-
         foodAdapter = new FoodAdapter(DailyActivity.this, foodList);
         listView.setAdapter(foodAdapter);
-
     }
 
     public void AjoutAliment(View view){

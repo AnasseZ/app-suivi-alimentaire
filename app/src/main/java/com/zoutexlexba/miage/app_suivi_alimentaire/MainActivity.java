@@ -19,10 +19,12 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Activities.DailyActivity;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Day;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.DayRepository;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodAdapter;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.HttpHandler;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.NutrimentsCalculator;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,6 +43,12 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     private FoodAdapter foodAdapter;
     private ListView listView;
+
+    private Day currentDay;
+    private DayRepository dayRepository;
+    String dateStr = "04/05/2010";
+
+    private NutrimentsCalculator nutrimentsCalculator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +69,9 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         // Il faudra biensûr faire autrement lorsqu'on aura des utilisateurs.
         userFoodList = new ArrayList<>();
 
+        nutrimentsCalculator = new NutrimentsCalculator();
+        dayRepository = new DayRepository();
+        currentDay = dayRepository.findDayByDate(dateStr, getHelper());
 
         listView = (ListView) findViewById(R.id.foodList);
         listView.setOnItemClickListener(this.getOnItemClickListener());
@@ -111,6 +122,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
                         FoodConsumed ajoutConsommation= new FoodConsumed(quantityConsumed,foodClicked.getId(),"day", currentDay.getDateJournee());
                         consommeDao.create(ajoutConsommation);
+                        nutrimentsCalculator.updateGoals(currentDay, foodClicked, quantityConsumed);
 
                         Intent intent = new Intent(MainActivity.this, DailyActivity.class);
                         startActivity(intent);

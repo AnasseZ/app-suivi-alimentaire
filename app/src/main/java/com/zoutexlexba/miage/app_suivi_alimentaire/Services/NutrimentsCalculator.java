@@ -1,6 +1,6 @@
 package com.zoutexlexba.miage.app_suivi_alimentaire.Services;
 
-import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.DailyReport;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Day;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
 
 /**
@@ -15,12 +15,9 @@ public class NutrimentsCalculator {
      *
      * @param dailyReport la Journée actuelle
      */
-    public void updateGoals(DailyReport dailyReport) {
+    public void updateGoals(Day dailyReport, Food food, float quantityConsumed) {
 
-        // Récupération du dernier aliment ajoutée à la consommation journalière
-        Food food = dailyReport.getListFood().get(dailyReport.getListFood().size() -1);
-
-        double ratio = 1000 / 100;
+        double ratio = quantityConsumed / 100;
         dailyReport.setEnergyConsumed((int)(food.getNutriment().getEnergy_100g() * ratio));
         dailyReport.setCarbohydratesConsumed(food.getNutriment().getCarbohydrates_100g() * ratio);
         dailyReport.setFatConsumed(food.getNutriment().getFat_100g() * ratio);
@@ -28,23 +25,23 @@ public class NutrimentsCalculator {
         dailyReport.setFiberConsumed(food.getNutriment().getFiber_100g() * ratio);
     }
 
-    public int getEnergyPercentage(DailyReport dailyReport) {
+    public int getEnergyPercentage(Day dailyReport) {
         return dailyReport.getEnergyConsumed() == 0 ? 0 : dailyReport.getEnergyConsumed() / dailyReport.getEneryGoal();
     }
 
-    public int getProteinPercentage(DailyReport dailyReport) {
+    public int getProteinPercentage(Day dailyReport) {
         return dailyReport.getProteinConsumed() == 0 ? 0 : (int)(dailyReport.getProteinConsumed() / dailyReport.getProteinGoal());
     }
 
-    public int getCarbPercentage(DailyReport dailyReport) {
+    public int getCarbPercentage(Day dailyReport) {
         return dailyReport.getCarbohydratesConsumed() == 0 ? 0 : (int)(dailyReport.getCarbohydratesConsumed() / dailyReport.getCarbohydratesGoal());
     }
 
-    public int getFatPercentage(DailyReport dailyReport) {
+    public int getFatPercentage(Day dailyReport) {
         return dailyReport.getFatConsumed() == 0 ? 0 : (int)(dailyReport.getFatConsumed() / dailyReport.getFatGoal());
     }
 
-    public int getFiberPercentage(DailyReport dailyReport) {
+    public int getFiberPercentage(Day dailyReport) {
         return dailyReport.getFiberConsumed() == 0 ? 0 : (int)(dailyReport.getFiberConsumed() / dailyReport.getFiberGoal());
     }
 }
