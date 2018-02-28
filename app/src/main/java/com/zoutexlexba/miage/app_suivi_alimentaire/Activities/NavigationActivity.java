@@ -1,6 +1,5 @@
 package com.zoutexlexba.miage.app_suivi_alimentaire.Activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
@@ -20,6 +19,9 @@ public class NavigationActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+
+        // DECOMMENTER / RECOMMENTER POUR DROP LA DATABASE A LA MAIN
+        //this.deleteDatabase("foodsave.db");
 
         Button btdailyactivity = (Button) findViewById(R.id.btdailyactivity);
         Button btgoal = (Button) findViewById(R.id.btngoalNavigation);

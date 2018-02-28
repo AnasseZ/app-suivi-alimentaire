@@ -143,4 +143,25 @@ public class Day {
     public void setListFood(ArrayList<Food> listFood) {
         this.listFood = listFood;
     }
+
+    public void updateEnergyConsumed(int energyConsumed, double ratio) {
+        int total = this.energyConsumed +  (int)(energyConsumed * ratio);
+        setEnergyConsumed(total);
+    }
+
+    public void updateProteinConsumed(double proteinConsumed, double ratio) {
+        setProteinConsumed(this.proteinConsumed + proteinConsumed * ratio);
+    }
+
+    public void updateCarbohydratesConsumed(double carbohydratesConsumed, double ratio) {
+        setCarbohydratesConsumed(this.carbohydratesConsumed + carbohydratesConsumed * ratio);
+    }
+
+    public void updateFatConsumed(double fatConsumed, double ratio) {
+        setFatConsumed(this.fatConsumed + fatConsumed * ratio);
+    }
+
+    public void updateFiberConsumed(double fiberConsumed, double ratio) {
+        setFiberConsumed(this.fiberConsumed + fiberConsumed * ratio);
+    }
 }

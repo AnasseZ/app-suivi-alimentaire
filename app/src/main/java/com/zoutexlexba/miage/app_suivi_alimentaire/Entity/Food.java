@@ -55,8 +55,8 @@ public class Food {
         this.quantity = quantity;
     }
 
-    public void initializeDataNutriment(){
-        this.energy_100g = nutriment.getEnergy_100g();
+    public void initializeDataNutriment(double ratio){
+        this.energy_100g = (int)(nutriment.getEnergy_100g() * ratio);
         this.fiber_100g = nutriment.getFiber_100g();
         this.carbohydrates_100g = nutriment.getCarbohydrates_100g();
         this.proteins_100g = nutriment.getProteins_100g();
@@ -155,11 +155,11 @@ public class Food {
         this.nutriment = nutriment;
     }
 
-    public String getNutrimentDescription() {
+    public String getNutrimentDescription(double ratio) {
         String message = "Choisir la quantité consommée.\n";
         return message + "" +
                 "Calories pour 100g : "
-                + this.nutriment.getEnergy_100g()
+                + (int)(this.nutriment.getEnergy_100g() * ratio)
                 + "\n"
                 + "Protéines pour 100g : "
                 + this.nutriment.getProteins_100g()
