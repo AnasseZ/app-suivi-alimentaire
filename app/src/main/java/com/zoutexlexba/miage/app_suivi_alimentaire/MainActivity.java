@@ -10,21 +10,19 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.j256.ormlite.stmt.PreparedQuery;
-import com.j256.ormlite.stmt.QueryBuilder;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Activities.DailyActivity;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Day;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.DayRepository;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodAdapter;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.HttpHandler;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.NutrimentsCalculator;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
@@ -34,6 +32,8 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private String URL_1 = "https://fr.openfoodfacts.org/cgi/search.pl?search_terms=";
     private String URL_2 = "&search_simple=1&action=process&json=1";
 
+    private static double RATIO_KJ_TO_KCAL = 0.239006;
+
     public HttpHandler httpHandler = new HttpHandler();
     public ArrayList<Food> foodList;
 
@@ -41,6 +41,12 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     private FoodAdapter foodAdapter;
     private ListView listView;
+
+    private Day currentDay;
+    private DayRepository dayRepository;
+    String dateStr = "04/05/2010";
+
+    private NutrimentsCalculator nutrimentsCalculator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,9 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         // Il faudra biensûr faire autrement lorsqu'on aura des utilisateurs.
         userFoodList = new ArrayList<>();
 
+        nutrimentsCalculator = new NutrimentsCalculator();
+        dayRepository = new DayRepository();
+        currentDay = dayRepository.findDayByDate(dateStr, getHelper());
 
         listView = (ListView) findViewById(R.id.foodList);
         listView.setOnItemClickListener(this.getOnItemClickListener());
@@ -79,7 +88,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                 final Food foodClicked = foodList.get(position);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setMessage(foodClicked.getNutrimentDescription())
+                builder.setMessage(foodClicked.getNutrimentDescription(RATIO_KJ_TO_KCAL))
                         .setTitle(foodClicked.getUsableName());
 
                 final EditText quantityInput = new EditText(MainActivity.this);
@@ -94,7 +103,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                         //persistance du choix
                         //persistance de la classe food
                         RuntimeExceptionDao<Food, Integer> foodDao = getHelper().getFoodRuntimeDao();
-                        foodClicked.initializeDataNutriment();
+                        foodClicked.initializeDataNutriment(RATIO_KJ_TO_KCAL);
                         foodDao.create(foodClicked);
 
                         //ajout de la journee
@@ -111,6 +120,9 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
                         FoodConsumed ajoutConsommation= new FoodConsumed(quantityConsumed,foodClicked.getId(),"day", currentDay.getDateJournee());
                         consommeDao.create(ajoutConsommation);
+
+                        nutrimentsCalculator.updateGoals(currentDay, foodClicked, quantityConsumed);
+                        journeeDao.update(currentDay);
 
                         Intent intent = new Intent(MainActivity.this, DailyActivity.class);
                         startActivity(intent);

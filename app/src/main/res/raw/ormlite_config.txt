@@ -1,5 +1,5 @@
 #
-# generated on 2018/02/27 05:15:15
+# generated on 2018/02/28 04:58:39
 #
 # --table-start--
 dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed
@@ -69,6 +69,36 @@ tableName=day
 # --field-start--
 fieldName=dateJournee
 id=true
+# --field-end--
+# --field-start--
+fieldName=eneryGoal
+# --field-end--
+# --field-start--
+fieldName=energyConsumed
+# --field-end--
+# --field-start--
+fieldName=proteinGoal
+# --field-end--
+# --field-start--
+fieldName=proteinConsumed
+# --field-end--
+# --field-start--
+fieldName=fiberGoal
+# --field-end--
+# --field-start--
+fieldName=fiberConsumed
+# --field-end--
+# --field-start--
+fieldName=fatGoal
+# --field-end--
+# --field-start--
+fieldName=fatConsumed
+# --field-end--
+# --field-start--
+fieldName=carbohydratesGoal
+# --field-end--
+# --field-start--
+fieldName=carbohydratesConsumed
 # --field-end--
 # --table-fields-end--
 # --table-end--
