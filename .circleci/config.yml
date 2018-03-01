@@ -31,10 +31,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run:
-          name: Accept licencies
-          command: cd ~/Library/Android/sdk/tools/bin &&
-           ./sdkmanager --update && yes | sdkmanager --licenses
+      - run: yes | sdkmanager --licenses && sdkmanager --update
       - run: gradle dependencies
 
       - save_cache:
