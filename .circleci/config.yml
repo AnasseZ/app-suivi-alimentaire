@@ -33,7 +33,8 @@ jobs:
 
       - run:
           name: Accept licencies
-          command: ./sdkmanager --update && yes | sdkmanager --licenses
+          command: cd ~/Library/Android/sdk/tools/bin &&
+           ./sdkmanager --update && yes | sdkmanager --licenses
       - run: gradle dependencies
 
       - save_cache:
