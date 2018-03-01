@@ -32,7 +32,7 @@ jobs:
           - v1-dependencies-
 
       #- run: yes | sdkmanager --licenses && sdkmanager --update
-      - run: gradle dependencies
+      - run: ./gradlew dependencies
 
       - save_cache:
           paths:
