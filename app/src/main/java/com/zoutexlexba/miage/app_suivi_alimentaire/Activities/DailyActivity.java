@@ -19,18 +19,24 @@ import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.FoodConsumedReposi
 import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.FoodRepository;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodAdapter;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.ListViewDailyAdapters;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import static com.zoutexlexba.miage.app_suivi_alimentaire.Services.Constants.FIRST_COLUMN;
+import static com.zoutexlexba.miage.app_suivi_alimentaire.Services.Constants.SECOND_COLUMN;
 
 public class DailyActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     //date fictive pour test
     String dateStr = "04/05/2010";
 
-    public ArrayList<Food> foodList;
+    private ArrayList<HashMap<String, String>> foodList;
+    private ArrayList<Food> food;
+
     private FoodAdapter foodAdapter;
-    private ListView listView;
 
     private FoodConsumedRepository foodConsumedRepository;
     private FoodRepository foodRepository;
@@ -41,7 +47,8 @@ public class DailyActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily);
 
-        listView = (ListView) findViewById(R.id.foodList);
+        ListView listView = (ListView) findViewById(R.id.foodListDaily);
+        foodList =new ArrayList<HashMap<String,String>>();
 
         foodConsumedRepository = new FoodConsumedRepository();
         foodRepository = new FoodRepository();
@@ -49,10 +56,22 @@ public class DailyActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
         Day currentJournee = dayRepository.findDayByDate(dateStr, getHelper());
         List<FoodConsumed> listConso = foodConsumedRepository.findFoodConsumedByDate(dateStr,getHelper());
-        foodList = foodRepository.findFoodById(listConso, getHelper());
+        food = foodRepository.findFoodById(listConso, getHelper());
 
-        foodAdapter = new FoodAdapter(DailyActivity.this, foodList);
-        listView.setAdapter(foodAdapter);
+        HashMap<String,String> entete=new HashMap<String, String>();
+        entete.put(FIRST_COLUMN, FIRST_COLUMN);
+        entete.put(SECOND_COLUMN, SECOND_COLUMN);
+        foodList.add(entete);
+
+        for (int i = 0; i < food.size(); i++){
+            HashMap<String,String> temp=new HashMap<String, String>();
+            temp.put(FIRST_COLUMN, food.get(i).getName());
+            temp.put(SECOND_COLUMN, "5000");
+            foodList.add(temp);
+        }
+
+        ListViewDailyAdapters adapter=new ListViewDailyAdapters(this, foodList);
+        listView.setAdapter(adapter);
     }
 
     public void AjoutAliment(View view){
