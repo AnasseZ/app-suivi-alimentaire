@@ -16,6 +16,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Activities.DailyActivity;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Day;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.User;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.DayRepository;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
@@ -36,6 +37,8 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     public HttpHandler httpHandler = new HttpHandler();
     public ArrayList<Food> foodList;
+
+   // public ArrayList<User> userList;
 
     public ArrayList<Food> userFoodList;
 

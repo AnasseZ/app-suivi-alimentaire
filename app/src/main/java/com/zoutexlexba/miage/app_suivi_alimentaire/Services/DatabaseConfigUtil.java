@@ -5,6 +5,7 @@ import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Day;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Meal;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.User;
 
 import java.io.File;
 
@@ -17,7 +18,8 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
             FoodConsumed.class,
             Food.class,
             Day.class,
-            Meal.class
+            Meal.class,
+           // User.class
     };
     public static void main(String[] args) throws Exception {
         writeConfigFile(new File("./app/src/main/res/raw/ormlite_config.txt"), classes);
