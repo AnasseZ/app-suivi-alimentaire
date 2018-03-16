@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.zoutexlexba.miage.app_suivi_alimentaire.CreaAccount;
+import com.zoutexlexba.miage.app_suivi_alimentaire.LoginActivity;
 import com.zoutexlexba.miage.app_suivi_alimentaire.MainActivity;
 import com.zoutexlexba.miage.app_suivi_alimentaire.R;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
@@ -34,6 +35,7 @@ public class NavigationActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btaddmeal.setOnClickListener(btaddmealListener);
         btpersonnalinfo.setOnClickListener(btpersonnalinfoListener);
         btInscription.setOnClickListener(btInscriptionListener);
+
     }
 
     //Redirection vers la page Activité journalière
@@ -99,4 +101,5 @@ public class NavigationActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             startActivity(intent);
         }
     };
+
 }
