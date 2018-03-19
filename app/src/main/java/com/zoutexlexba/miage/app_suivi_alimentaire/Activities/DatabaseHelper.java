@@ -15,59 +15,6 @@ import java.util.List;
  * Created by Test on 14/03/2018.
  */
 
-/*public class DatabaseHelper extends SQLiteOpenHelper {
-
-    public DatabaseHelper(Context context){
-        super (context,"db",null,1);
-
-    }
-
-    public void onCreate(SQLiteDatabase db){
-        db.execSQL("create table user(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT,email TEXT, password TEXT)");
-        ContentValues values = new ContentValues();
-        /*values.put("name", user.getName());
-        values.put("email", user.getEmail());
-        values.put("password", user.getPassword());
-        values.put("name", "ouleye");
-        values.put("email", "barrouleye4@gmail.com");
-        values.put("password", "yenapas");
-        db.insert("User", null, values);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("Drop table if exists user ");
-    }
-
-
-    public Boolean addUser(User user) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-       ContentValues values = new ContentValues();
-        /*values.put("name", user.getName());
-        values.put("email", user.getEmail());
-        values.put("password", user.getPassword());
-        values.put("name", "ouleye");
-        values.put("email", "barrouleye4@gmail.com");
-        values.put("password", "yenapas");
-
-        // Inserting Row
-        long ins= db.insert("User", null, values);
-        if (ins==-1) return false;
-        else return true;
-    }
-
-    public boolean isUser(String login, String pwd){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String request="SELECT * from User where name=? and pwd=?";
-        Cursor cursor=db.rawQuery(request,new String[]{login,pwd});
-        if (cursor.getCount()>0)
-            return false;
-        else
-            return true;
-    }
-}*/
-
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version
