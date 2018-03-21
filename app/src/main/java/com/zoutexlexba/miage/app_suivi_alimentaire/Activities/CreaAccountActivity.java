@@ -1,8 +1,4 @@
-package com.zoutexlexba.miage.app_suivi_alimentaire;
-
-/**
- * Created by quentin on 07/02/2018.
- */
+package com.zoutexlexba.miage.app_suivi_alimentaire.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.zoutexlexba.miage.app_suivi_alimentaire.R;
 
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
@@ -19,7 +17,11 @@ import java.security.spec.InvalidKeySpecException;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-public class CreaAccount extends Activity implements View.OnClickListener {
+/**
+ * Created by quentinlexert on 21/03/2018.
+ */
+
+public class CreaAccountActivity extends Activity implements View.OnClickListener {
     public TextView text;
     public EditText edit;
     public EditText password;
@@ -29,7 +31,7 @@ public class CreaAccount extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crea_account);
+        setContentView(R.layout.activity_register);
 
         text = ((TextView)findViewById(R.id.textView));
 

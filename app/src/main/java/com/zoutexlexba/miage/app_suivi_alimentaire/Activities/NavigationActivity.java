@@ -8,8 +8,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.zoutexlexba.miage.app_suivi_alimentaire.CreaAccount;
-import com.zoutexlexba.miage.app_suivi_alimentaire.LoginActivity;
 import com.zoutexlexba.miage.app_suivi_alimentaire.MainActivity;
 import com.zoutexlexba.miage.app_suivi_alimentaire.R;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
@@ -97,7 +95,7 @@ public class NavigationActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         @Override
         public void onClick(View view) {
             Log.d("debug","Inscription");
-            Intent intent = new Intent (NavigationActivity.this, CreaAccount.class);
+            Intent intent = new Intent (NavigationActivity.this, DailyActivity.CreaAccountActivity.class);
             startActivity(intent);
         }
     };
