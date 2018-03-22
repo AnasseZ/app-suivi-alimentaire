@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="385dp"
         android:layout_height="437dp"
         android:orientation="vertical"
@@ -32,7 +33,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Saisir le pseudo" />
+                tools:text="Saisir le pseudo" />
         </LinearLayout>
 
         <LinearLayout
@@ -48,13 +49,13 @@
                 android:text="Identifiant" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/editID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Saisir l'identifiant" />
+                tools:text="Saisir l'identifiant" />
         </LinearLayout>
 
         <LinearLayout
@@ -70,12 +71,13 @@
                 android:text="Mot de passe" />
 
             <EditText
+                android:id="@+id/editPw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:text="Saisir le mot de passe" />
+                tools:text="Saisir le mot de passe" />
 
         </LinearLayout>
 
@@ -98,7 +100,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Saisir l'âge" />
+                android:numeric="integer"
+                tools:text="Saisir l'âge" />
         </LinearLayout>
 
         <LinearLayout
@@ -120,8 +123,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Saisir le poids" />
+                android:inputType="numberDecimal"
+                tools:text="Saisir le poids" />
         </LinearLayout>
 
         <LinearLayout
@@ -161,23 +164,34 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <RadioButton
-                        android:id="@+id/radioButton5"
+                    <RadioGroup
+                        android:id="@+id/radio_group"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Prise de masse" />
+                        android:layout_height="match_parent">
 
-                    <RadioButton
-                        android:id="@+id/radioButton6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Maintien" />
+                        <RadioButton
+                            android:id="@+id/radioMaintien"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Maintien" />
 
-                    <RadioButton
-                        android:id="@+id/radioButton7"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Perte de poids" />
+                        <RadioButton
+                            android:id="@+id/radioPerte"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Perte de poids" />
+
+                        <RadioButton
+                            android:id="@+id/radioPrise"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Prise de masse" />
+                    </RadioGroup>
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -186,10 +200,16 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/b_insc"
+        android:layout_width="95dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="17dp"
+        android:layout_marginEnd="141dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="9dp"
         android:text="S'inscrire"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="446dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 </android.support.constraint.ConstraintLayout>

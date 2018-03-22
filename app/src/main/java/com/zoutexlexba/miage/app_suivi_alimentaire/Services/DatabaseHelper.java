@@ -30,7 +30,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // name of the database file for your application -- change to something appropriate for your app
     private static final String DATABASE_NAME = "foodsave.db";
     // any time you make changes to your database objects, you may have to increase the database version
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     // the DAO object we use to access the Aliment table
     private Dao<User,Integer> userDao=null;
@@ -67,6 +67,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTableIfNotExists(connectionSource, Food.class);
             TableUtils.createTableIfNotExists(connectionSource, Day.class);
             TableUtils.createTableIfNotExists(connectionSource, Meal.class);
+            TableUtils.createTableIfNotExists(connectionSource, User.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
@@ -84,8 +85,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Food.class, true);
             TableUtils.dropTable(connectionSource, Meal.class, true);
             TableUtils.dropTable(connectionSource, Day.class, true);
-           // db.execSQL("create table User(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT,email TEXT, password TEXT)");
-          //  TableUtils.dropTable(connectionSource,User.class,true);
+            TableUtils.dropTable(connectionSource,User.class,true);
             // after we drop the old databases, we create the new ones
             onCreate(db, connectionSource);
         } catch (SQLException e) {

@@ -95,7 +95,7 @@ public class NavigationActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         @Override
         public void onClick(View view) {
             Log.d("debug","Inscription");
-            Intent intent = new Intent (NavigationActivity.this, DailyActivity.CreaAccountActivity.class);
+            Intent intent = new Intent (NavigationActivity.this, CreaAccountActivity.class);
             startActivity(intent);
         }
     };

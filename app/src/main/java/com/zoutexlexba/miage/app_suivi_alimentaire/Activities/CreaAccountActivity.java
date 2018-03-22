@@ -1,13 +1,22 @@
 package com.zoutexlexba.miage.app_suivi_alimentaire.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.zoutexlexba.miage.app_suivi_alimentaire.R;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.User;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
 
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
@@ -21,52 +30,61 @@ import javax.crypto.spec.PBEKeySpec;
  * Created by quentinlexert on 21/03/2018.
  */
 
-public class CreaAccountActivity extends Activity implements View.OnClickListener {
-    public TextView text;
-    public EditText edit;
-    public EditText password;
-    public String[][] account = new String[10][2];
-    public int iterator = 0;
+public class CreaAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> implements View.OnClickListener {
+    public EditText password,pseudo,login,age,weight;
+    public String radio;
+    RadioGroup rg;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        text = ((TextView)findViewById(R.id.textView));
-
-        edit = ((EditText)findViewById(R.id.editText));
-        password = ((EditText)findViewById(R.id.pw));
-
-
-        text.setText("Entrez votre nom de compte");
-
-        Button b = (Button)findViewById(R.id.button);
+        pseudo = ((EditText)findViewById(R.id.editPseudo));;
+        password = ((EditText)findViewById(R.id.editPw));
+        login = ((EditText)findViewById(R.id.editID));
+        age = ((EditText)findViewById(R.id.editAge));
+        weight = ((EditText)findViewById(R.id.editWeigh));
+        Button b = (Button)findViewById(R.id.b_insc);
         b.setOnClickListener(this);
-
-
+        rg  = ((RadioGroup)findViewById(R.id.radio_group));
+        /*rg.addView((RadioButton)findViewById(R.id.radioMaintien),0);
+        rg.addView((RadioButton)findViewById(R.id.radioPerte),1);
+        rg.addView((RadioButton)findViewById(R.id.radioPrise),2);*/
     }
 
     @Override
     public void onClick(View v) {
 
-        account[iterator][0] = edit.getText().toString();
-        String originalPassword = password.getText().toString();
-        account[iterator][1] = originalPassword;
-
-
-
-        try{
-            account[iterator][1] = generateStrongPasswordHash(originalPassword);
-            text.setText("Password set");//+validatePassword(generateStrongPasswordHash(originalPassword),account[iterator][1]));
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-            account[iterator][1] = "FAIL";
+        switch(rg.getCheckedRadioButtonId()){
+            case 0:
+                radio = "maintien";
+                break;
+            case 1:
+                radio = "perte";
+                break;
+            case 2 :
+                radio = "prise";
+                break;
         }
 
-        System.out.println("Coucou!");
-        iterator++;
+        if(pseudo.getText().toString().matches("") || password.getText().toString().matches("") || login.getText().toString().matches("") || age.getText().toString().matches("") || weight.getText().toString().matches(""))
+        {
+            Toast.makeText(getApplicationContext(), "Veuillez compléter tous les champs", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            try {
+                //getHelper().getUserRuntimeDao().create(new User(login.getText().toString(),password.getText().toString(),42/*Integer.getInteger(age.getText().toString())*/,radio,34/*Integer.getInteger(weight.getText().toString())*/));
+                getHelper().getUserRuntimeDao().create(new User("toto","tutu",42/*Integer.getInteger(age.getText().toString())*/,radio,34/*Integer.getInteger(weight.getText().toString())*/));
+
+                Intent intent = new Intent(CreaAccountActivity.this, NavigationActivity.class);
+                startActivity(intent);
+            } catch (Exception e) {
+                System.out.println("<--ERREUR-->\n"+e.getMessage());
+            }
+        }
     }
 
     private static String generateStrongPasswordHash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException
