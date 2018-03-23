@@ -13,14 +13,6 @@ jobs:
       - run:
          name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
          command: sudo chmod +x ./gradlew
-         command: ANDROID_HOME=/usr/local/android-sdk-linux
-         command: mkdir "$ANDROID_HOME/licenses" || true
-         command: echo "8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
-         command: echo "84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
-         command: echo "d975f751698a77b662f1254ddbeed3901e976f5a" > "$ANDROID_HOME/licenses/intel-android-extra-license"
-
-         #command: echo y | android update sdk --no-ui --all --filter “tool,extra-android-m2repository,extra-android-support,extra-google-google_play_services,extra-google-m2repository”
-         #command: echo y | $ANDROID_HOME/tools/bin/sdkmanager “extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2”
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
@@ -28,9 +20,9 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
-          name: Run Tests
-          command: ./gradlew lint test
+      #- run:
+      #    name: Run Tests
+      #    command: ./gradlew lint test
       - store_artifacts:
           path: app/build/reports
           destination: reports
