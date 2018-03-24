@@ -18,6 +18,10 @@
         android:theme="@style/AppTheme">
         <activity android:name=".CreaAccount" />
         <activity android:name=".Activities.GoalActivity" />
+        <activity android:name=".Activities.MealActivity"
+            android:parentActivityName=".Activities.NavigationActivity" />
+        <activity android:name=".Activities.AddMealActivity"
+            android:parentActivityName=".Activities.MealActivity" />
         <activity
             android:name=".Activities.DailyActivity"
             android:parentActivityName=".Activities.NavigationActivity" />

@@ -30,4 +30,20 @@ public class FoodConsumedRepository {
 
         return  listConso;
     }
+
+    public List<FoodConsumed> findFoodConsumedByIdMeal(Integer id, DatabaseHelper databaseHelper) {
+        List<FoodConsumed> listConso = null;
+        RuntimeExceptionDao<FoodConsumed, Integer> consommeDao = databaseHelper.getConsommeDataDao();
+        QueryBuilder<FoodConsumed, Integer> queryBuilder = consommeDao.queryBuilder();
+
+        try {
+            queryBuilder.where().eq(FoodConsumed.ID_MEAL,id);
+            PreparedQuery<FoodConsumed> preparedQuery = queryBuilder.prepare();
+            listConso= consommeDao.query(preparedQuery);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return  listConso;
+    }
 }
