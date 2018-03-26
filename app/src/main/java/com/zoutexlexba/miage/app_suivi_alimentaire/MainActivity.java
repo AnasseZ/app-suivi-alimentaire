@@ -137,7 +137,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                             //ajout de la consomation
                             RuntimeExceptionDao<FoodConsumed, Integer> consommeDao = getHelper().getConsommeDataDao();
 
-                            //FoodConsumed ajoutConsommation = new FoodConsumed(quantityConsumed, foodClicked.getId(), "day", currentDay.getDateJournee());
                             FoodConsumed ajoutConsommation = new FoodConsumed(quantityConsumed, foodClicked.getId(),"meal",idMeal);
                             consommeDao.create(ajoutConsommation);
 

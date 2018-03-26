@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.DayMealConsumed;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Meal;
 import com.zoutexlexba.miage.app_suivi_alimentaire.MainActivity;
@@ -69,11 +71,19 @@ public class MealActivity extends OrmLiteBaseActivity<DatabaseHelper>  {
 
                 // Récupération du bon aliment
                 final Meal mealClicked = listMeal.get(position-1);
+                if(getIntent().hasExtra("Date")) {
 
-                Intent intent = new Intent(MealActivity.this, AddMealActivity.class);
-                intent.putExtra("idRepas", mealClicked.getId());
 
-                startActivity(intent);
+                    RuntimeExceptionDao<DayMealConsumed, Integer> mealConsomedDao = getHelper().getDayMealConsumedDao();
+
+                    FoodConsumed ajoutConsommation = new FoodConsumed(quantityConsumed, foodClicked.getId(),"meal",idMeal);
+                    consommeDao.create(ajoutConsommation);
+                }else {
+                    Intent intent = new Intent(MealActivity.this, AddMealActivity.class);
+                    intent.putExtra("idRepas", mealClicked.getId());
+
+                    startActivity(intent);
+                }
             }
         };
     }
