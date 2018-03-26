@@ -36,8 +36,6 @@ public class DailyActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private ArrayList<HashMap<String, String>> foodList;
     private ArrayList<Food> food;
 
-    private FoodAdapter foodAdapter;
-
     private FoodConsumedRepository foodConsumedRepository;
     private FoodRepository foodRepository;
     private DayRepository dayRepository;

@@ -17,6 +17,7 @@ import com.zoutexlexba.miage.app_suivi_alimentaire.R;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.MealRepository;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.ListViewDailyAdapters;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.ListViewMealAdapters;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +47,7 @@ public class MealActivity extends OrmLiteBaseActivity<DatabaseHelper>  {
         HashMap<String,String> entete=new HashMap<String, String>();
         entete.put(FIRST_COLUMN_MEAL, FIRST_COLUMN_MEAL);
         entete.put(SECOND_COLUMN_MEAL, SECOND_COLUMN_MEAL);
-        entete.put(THIRD_COLUMN_MEAL, THIRD_COLUMN_MEAL);
+        //entete.put(THIRD_COLUMN_MEAL, THIRD_COLUMN_MEAL);
         mealList.add(entete);
 
         for (int i = 0; i < listMeal.size(); i++){
@@ -56,8 +57,9 @@ public class MealActivity extends OrmLiteBaseActivity<DatabaseHelper>  {
             mealList.add(temp);
         }
 
-        ListViewDailyAdapters adapter=new ListViewDailyAdapters(this, mealList);
+        ListViewMealAdapters adapter=new ListViewMealAdapters(this, mealList);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this.getOnItemClickListener());
     }
 
     public AdapterView.OnItemClickListener getOnItemClickListener() {
@@ -66,7 +68,7 @@ public class MealActivity extends OrmLiteBaseActivity<DatabaseHelper>  {
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
                 // Récupération du bon aliment
-                final Meal mealClicked = listMeal.get(position);
+                final Meal mealClicked = listMeal.get(position-1);
 
                 Intent intent = new Intent(MealActivity.this, AddMealActivity.class);
                 intent.putExtra("idRepas", mealClicked.getId());
@@ -76,12 +78,9 @@ public class MealActivity extends OrmLiteBaseActivity<DatabaseHelper>  {
         };
     }
 
-
     public void AjoutRepas(View view){
         Intent intent = new Intent(MealActivity.this, AddMealActivity.class);
         intent.putExtra("idRepas", -1);
         startActivity(intent);
     }
-
-
 }
