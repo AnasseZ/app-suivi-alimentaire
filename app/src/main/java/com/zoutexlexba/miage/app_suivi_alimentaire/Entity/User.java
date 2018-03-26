@@ -11,34 +11,34 @@ import com.j256.ormlite.field.DatabaseField;
 public class User {
 
     @DatabaseField(generatedId = true)
-    private int id;
-    @DatabaseField(columnName = "name", canBeNull = false)
+    private Integer id;
+    @DatabaseField(canBeNull = false)
     private String name;
     //@DatabaseField(columnName = "email")
     //private String email;
-    @DatabaseField(columnName = "password", canBeNull = false)
+    @DatabaseField(canBeNull = false)
     private String password;
-    @DatabaseField(columnName = "weight")
-    private Float weight ;
-    @DatabaseField(columnName = "objective")
+    @DatabaseField
+    private Double weight ;
+    @DatabaseField
     private String obj;
-    @DatabaseField(columnName = "age")
-    private int age;
+    @DatabaseField
+    private Integer age;
 
 
-    public Float getWeight() { return weight; }
+    public Double getWeight() { return weight; }
 
-    public void setWeight(Float weight) { this.weight = weight; }
+    public void setWeight(Double weight) { this.weight = weight; }
 
     public String getObj() { return obj; }
 
     public void setObj(String obj) { this.obj = obj; }
 
-    public int getAge() { return age; }
+    public Integer getAge() { return age; }
 
-    public void setAge(int age) { this.age = age; }
+    public void setAge(Integer age) { this.age = age; }
 
-    public int getId(){
+    public Integer getId(){
         return this.id;
     }
 
@@ -54,7 +54,7 @@ public class User {
         return this.password;
     }
 
-    public void setId(int id){
+    public void setId(Integer id){
         this.id=id;
     }
 
@@ -70,10 +70,9 @@ public class User {
         this.password=password;
     }
 
-    public User(){
-        this.name=null;
-        //this.email=null;
-        this.password=null;
+    public User()
+    {
+
     }
 
     public User(String name, String email, String password){
@@ -88,7 +87,7 @@ public class User {
 
     }
 
-    public User(String login, String password, int age, String obj, float weight){
+    public User(String login, String password, Double weight , String obj, Integer age){
         this.name = name;
         this.password = password;
         this.age = age;
