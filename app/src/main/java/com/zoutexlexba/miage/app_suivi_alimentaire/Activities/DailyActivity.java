@@ -80,4 +80,13 @@ public class DailyActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
         startActivity(intent);
     }
+
+    public void AjoutRepas(View view){
+        Intent intent = new Intent(DailyActivity.this, MealActivity.class);
+
+        //Gestion de la date
+        intent.putExtra("Date", dateStr);
+
+        startActivity(intent);
+    }
 }

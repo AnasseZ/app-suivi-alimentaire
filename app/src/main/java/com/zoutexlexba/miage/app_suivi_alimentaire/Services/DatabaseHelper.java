@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.j256.ormlite.table.TableUtils;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.DayMealConsumed;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Day;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
@@ -35,6 +36,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // the DAO object we use to access the Aliment table
    // private Dao<User,Integer> userDao=null;
    // private RuntimeExceptionDao<User,Integer> userRuntimeDao=null;
+
+    private Dao<DayMealConsumed, Integer> dayMealConsumedDao = null;
+    private RuntimeExceptionDao<DayMealConsumed, Integer> dayMealConsumedRuntimeDao = null;
 
     private Dao<Food, Integer> foodDao = null;
     private RuntimeExceptionDao<Food, Integer> foodRuntimeDao = null;
@@ -67,6 +71,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTableIfNotExists(connectionSource, Food.class);
             TableUtils.createTableIfNotExists(connectionSource, Day.class);
             TableUtils.createTableIfNotExists(connectionSource, Meal.class);
+            TableUtils.createTableIfNotExists(connectionSource, DayMealConsumed.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
@@ -134,6 +139,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return repasDao;
     }
 
+    public Dao<DayMealConsumed, Integer> getDayMealConsumedDao() throws SQLException {
+        if (dayMealConsumedDao == null) {
+            dayMealConsumedDao = getDao(DayMealConsumed.class);
+        }
+        return dayMealConsumedDao;
+    }
+
     /**
      * Returns the RuntimeExceptionDao (Database Access Object) version of a Dao for our SimpleData class. It will
      * create it or just give the cached value. RuntimeExceptionDao only through RuntimeExceptions.
@@ -144,6 +156,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
         return userRuntimeDao;
     }*/
+
+    public RuntimeExceptionDao<DayMealConsumed, Integer> getDayMealConsumedRuntimeDao() {
+      if (dayMealConsumedRuntimeDao == null) {
+          dayMealConsumedRuntimeDao = getRuntimeExceptionDao(DayMealConsumed.class);
+      }
+      return dayMealConsumedRuntimeDao;
+    }
 
     public RuntimeExceptionDao<Food, Integer> getFoodRuntimeDao() {
         if (foodRuntimeDao == null) {
@@ -216,5 +235,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         journeeRuntimeDao = null;
         repasDao = null;
         repasRuntimeDao = null;
+        dayMealConsumedDao = null;
+        dayMealConsumedRuntimeDao = null;
     }
 }
