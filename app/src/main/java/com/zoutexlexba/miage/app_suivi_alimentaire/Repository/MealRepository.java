@@ -8,6 +8,7 @@ import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Meal;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,15 +26,16 @@ public class MealRepository {
         return  listConso;
     }
 
-    public List<Meal> getMealByDate(DatabaseHelper databaseHelper, String dateStr) {
+    public ArrayList<Meal> getMealByDate(DatabaseHelper databaseHelper, String dateStr) {
         DayMealRepository repository = new DayMealRepository();
-        List<Meal> listConso = null;
+        ArrayList<Meal> listConso = new ArrayList<Meal>();
 
         RuntimeExceptionDao<Meal, Integer> mealDao = databaseHelper.getRepasRuntimeDao();
         List<DayMealConsumed> listDayMealConso = repository.getDayMealByDate(databaseHelper, dateStr);
 
         for(DayMealConsumed d : listDayMealConso){
-            listConso.add(mealDao.queryForId(d.getId()));
+            Meal meal = mealDao.queryForId(d.getIdMeal());
+            listConso.add(meal);
         }
 
         return listConso;
