@@ -12,11 +12,13 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Day;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Meal;
 import com.zoutexlexba.miage.app_suivi_alimentaire.MainActivity;
 import com.zoutexlexba.miage.app_suivi_alimentaire.R;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.DayRepository;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.FoodConsumedRepository;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.FoodRepository;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.MealRepository;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodAdapter;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.ListViewDailyAdapters;
@@ -35,10 +37,12 @@ public class DailyActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     private ArrayList<HashMap<String, String>> foodList;
     private ArrayList<Food> food;
+    private List<Meal> meal;
 
     private FoodConsumedRepository foodConsumedRepository;
     private FoodRepository foodRepository;
     private DayRepository dayRepository;
+    private MealRepository mealRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,8 @@ public class DailyActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
         Day currentJournee = dayRepository.findDayByDate(dateStr, getHelper());
         List<FoodConsumed> listConso = foodConsumedRepository.findFoodConsumedByDate(dateStr,getHelper());
+
+
         food = foodRepository.findFoodById(listConso, getHelper());
 
         HashMap<String,String> entete=new HashMap<String, String>();
@@ -64,6 +70,16 @@ public class DailyActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         for (int i = 0; i < food.size(); i++){
             HashMap<String,String> temp=new HashMap<String, String>();
             temp.put(FIRST_COLUMN, food.get(i).getName());
+            temp.put(SECOND_COLUMN, "5000");
+            foodList.add(temp);
+        }
+
+        mealRepository = new MealRepository();
+        meal = mealRepository.getMealByDate(getHelper(), dateStr);
+
+        for (int i = 0 ; i < meal.size(); i++){
+            HashMap<String,String> temp=new HashMap<String, String>();
+            temp.put(FIRST_COLUMN, "Repas : " + meal.get(i).getNom());
             temp.put(SECOND_COLUMN, "5000");
             foodList.add(temp);
         }

@@ -72,12 +72,10 @@ public class MealActivity extends OrmLiteBaseActivity<DatabaseHelper>  {
                 // Récupération du bon aliment
                 final Meal mealClicked = listMeal.get(position-1);
                 if(getIntent().hasExtra("Date")) {
-
-
-                    RuntimeExceptionDao<DayMealConsumed, Integer> mealConsomedDao = getHelper().getDayMealConsumedDao();
-
-                    FoodConsumed ajoutConsommation = new FoodConsumed(quantityConsumed, foodClicked.getId(),"meal",idMeal);
-                    consommeDao.create(ajoutConsommation);
+                    RuntimeExceptionDao<DayMealConsumed, Integer> mealConsomedDao = getHelper().getDayMealConsumedRuntimeDao();
+                    DayMealConsumed ajoutMealConso = new DayMealConsumed(mealClicked.getId(), getIntent().getStringExtra("Date"));
+                    mealConsomedDao.create(ajoutMealConso);
+                    finish();
                 }else {
                     Intent intent = new Intent(MealActivity.this, AddMealActivity.class);
                     intent.putExtra("idRepas", mealClicked.getId());

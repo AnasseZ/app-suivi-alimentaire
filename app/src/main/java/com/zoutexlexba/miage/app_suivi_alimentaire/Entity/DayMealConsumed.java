@@ -6,17 +6,24 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "daymealconsumed")
 public class DayMealConsumed {
 
+    public static final String ID_DAY = "idDay";
+
     @DatabaseField(generatedId = true)
     private Integer id;
 
     @DatabaseField
     private Integer idMeal;
 
-    @DatabaseField
+    @DatabaseField(columnName = ID_DAY)
     private String idDay;
 
     public DayMealConsumed(){
 
+    }
+
+    public DayMealConsumed(Integer id, String day){
+        this.idDay = day;
+        this.idMeal = id;
     }
 
     public Integer getId() {

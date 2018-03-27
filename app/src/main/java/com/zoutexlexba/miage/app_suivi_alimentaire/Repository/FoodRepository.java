@@ -26,7 +26,6 @@ public class FoodRepository {
        ArrayList foodList = new ArrayList<Food>();
 
        for(int i = 0; i < listConso.size(); i++){
-           Food toAdd = foodDao.queryForId(listConso.get(i).getIdFood());
            foodList.add(findOneFoodById(listConso,foodDao,i));
        }
 

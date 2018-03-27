@@ -3,6 +3,7 @@ package com.zoutexlexba.miage.app_suivi_alimentaire.Repository;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.DayMealConsumed;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Meal;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
 
@@ -22,5 +23,19 @@ public class MealRepository {
         listConso= mealDao.queryForAll();
 
         return  listConso;
+    }
+
+    public List<Meal> getMealByDate(DatabaseHelper databaseHelper, String dateStr) {
+        DayMealRepository repository = new DayMealRepository();
+        List<Meal> listConso = null;
+
+        RuntimeExceptionDao<Meal, Integer> mealDao = databaseHelper.getRepasRuntimeDao();
+        List<DayMealConsumed> listDayMealConso = repository.getDayMealByDate(databaseHelper, dateStr);
+
+        for(DayMealConsumed d : listDayMealConso){
+            listConso.add(mealDao.queryForId(d.getId()));
+        }
+
+        return listConso;
     }
 }
