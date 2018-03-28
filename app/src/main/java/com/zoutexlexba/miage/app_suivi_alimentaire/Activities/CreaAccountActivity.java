@@ -17,6 +17,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.zoutexlexba.miage.app_suivi_alimentaire.R;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.User;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.SecurePassword;
 
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
@@ -33,6 +34,7 @@ import javax.crypto.spec.PBEKeySpec;
 public class CreaAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> implements View.OnClickListener {
     public EditText password,pseudo,login,age,weight;
     public String radio;
+    SecurePassword hashPassword = new SecurePassword();
     RadioGroup rg;
 
 
@@ -53,6 +55,7 @@ public class CreaAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
         /*rg.addView((RadioButton)findViewById(R.id.radioMaintien),0);
         rg.addView((RadioButton)findViewById(R.id.radioPerte),1);
         rg.addView((RadioButton)findViewById(R.id.radioPrise),2);*/
+
     }
 
     @Override
@@ -75,9 +78,17 @@ public class CreaAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
             Toast.makeText(getApplicationContext(), "Veuillez compléter tous les champs", Toast.LENGTH_SHORT).show();
         }
         else {
+
             try {
-                RuntimeExceptionDao<User,Integer> userDao = getHelper().getUserRuntimeDao();
-                User newOne = new User("toto","tutu",42.00/*Integer.getInteger(age.getText().toString())*/,radio,34/*Integer.getInteger(weight.getText().toString())*/);
+                String loginString = login.getText().toString().trim();
+                String passwordString = hashPassword.generateStrongPasswordHash(password.getText().toString().trim());
+
+                Double weightDouble = Double.parseDouble(weight.getText().toString().trim());
+                Integer ageInt = Integer.parseInt(age.getText().toString().trim());
+
+                RuntimeExceptionDao<User,String> userDao = getHelper().getUserRuntimeDao();
+                User newOne = new User(loginString,passwordString,weightDouble,radio,ageInt);
+                System.out.println(newOne.getAge() + " " + newOne.getLogin()+newOne.getWeight()+newOne.getPassword());
                 userDao.createOrUpdate(newOne);
 
                 Intent intent = new Intent(CreaAccountActivity.this, NavigationActivity.class);
@@ -85,69 +96,8 @@ public class CreaAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
             } catch (Exception e) {
                 System.out.println("<--ERREUR-->\n"+e.getMessage());
                 System.out.println(e.getLocalizedMessage());
-                System.out.println(e.getCause());
+                //System.out.println(e.getCause());
             }
         }
-    }
-
-    private static String generateStrongPasswordHash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException
-    {
-        Integer iterations = 10000;
-        char[] chars = password.toCharArray();
-        byte[] salt = getSalt();
-
-        PBEKeySpec spec = new PBEKeySpec(chars, salt, iterations, 64 * 8);
-        SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        byte[] hash = skf.generateSecret(spec).getEncoded();
-        return iterations + ":" + toHex(salt) + ":" + toHex(hash);
-    }
-
-    private static byte[] getSalt() throws NoSuchAlgorithmException
-    {
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-        byte[] salt = new byte[16];
-        sr.nextBytes(salt);
-        return salt;
-    }
-
-    private static String toHex(byte[] array) throws NoSuchAlgorithmException
-    {
-        BigInteger bi = new BigInteger(1, array);
-        String hex = bi.toString(16);
-        Integer paddingLength = (array.length * 2) - hex.length();
-        if(paddingLength > 0)
-        {
-            return String.format("%0"  +paddingLength + "d", 0) + hex;
-        }else{
-            return hex;
-        }
-    }
-
-    private static boolean validatePassword(String originalPassword, String storedPassword) throws NoSuchAlgorithmException, InvalidKeySpecException
-    {
-        String[] parts = storedPassword.split(":");
-        Integer iterations = Integer.parseInt(parts[0]);
-        byte[] salt = fromHex(parts[1]);
-        byte[] hash = fromHex(parts[2]);
-
-        PBEKeySpec spec = new PBEKeySpec(originalPassword.toCharArray(), salt, iterations, hash.length * 8);
-        SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        byte[] testHash = skf.generateSecret(spec).getEncoded();
-
-        Integer diff = hash.length ^ testHash.length;
-        for(Integer i = 0; i < hash.length && i < testHash.length; i++)
-        {
-            diff |= hash[i] ^ testHash[i];
-        }
-        return diff == 0;
-    }
-    private static byte[] fromHex(String hex) throws NoSuchAlgorithmException
-    {
-        byte[] bytes = new byte[hex.length() / 2];
-        for(Integer i = 0; i<bytes.length ;i++)
-        {
-            bytes[i] = (byte)Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);
-        }
-        return bytes;
     }
 }

@@ -10,10 +10,8 @@ import com.j256.ormlite.field.DatabaseField;
 @DatabaseTable(tableName = "User")
 public class User {
 
-    @DatabaseField(generatedId = true)
-    private Integer id;
-    @DatabaseField(canBeNull = false)
-    private String name;
+    @DatabaseField(id = true,canBeNull = false)
+    private String login;
     //@DatabaseField(columnName = "email")
     //private String email;
     @DatabaseField(canBeNull = false)
@@ -38,12 +36,8 @@ public class User {
 
     public void setAge(Integer age) { this.age = age; }
 
-    public Integer getId(){
-        return this.id;
-    }
-
-    public String getName(){
-        return this.name;
+    public String getLogin(){
+        return this.login;
     }
 
     /*public String getEmail(){
@@ -54,12 +48,9 @@ public class User {
         return this.password;
     }
 
-    public void setId(Integer id){
-        this.id=id;
-    }
 
-    public void setName(String name){
-        this.name=name;
+    public void setLogin(String name){
+        this.login=name;
     }
 
     /*public void setEmail(String email){
@@ -76,19 +67,19 @@ public class User {
     }
 
     public User(String name, String email, String password){
-        this.name=name;
+        this.login=name;
         //this.email=email;
         this.password=password;
     }
 
     public User(String login, String password){
-        this.name=login;
+        this.login=login;
         this.password=password;
 
     }
 
     public User(String login, String password, Double weight , String obj, Integer age){
-        this.name = name;
+        this.login = login;
         this.password = password;
         this.age = age;
         this.weight = weight;

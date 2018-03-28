@@ -1,5 +1,5 @@
 #
-# generated on 2018/03/26 04:25:15
+# generated on 2018/03/28 11:41:10
 #
 # --table-start--
 dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed
@@ -122,12 +122,9 @@ dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.User
 tableName=User
 # --table-fields-start--
 # --field-start--
-fieldName=id
-generatedId=true
-# --field-end--
-# --field-start--
-fieldName=name
+fieldName=login
 canBeNull=false
+id=true
 # --field-end--
 # --field-start--
 fieldName=password
