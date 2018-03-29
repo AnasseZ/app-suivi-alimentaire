@@ -30,11 +30,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // name of the database file for your application -- change to something appropriate for your app
     private static final String DATABASE_NAME = "foodsave.db";
     // any time you make changes to your database objects, you may have to increase the database version
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 8;
 
     // the DAO object we use to access the Aliment table
-   // private Dao<User,Integer> userDao=null;
-   // private RuntimeExceptionDao<User,Integer> userRuntimeDao=null;
+    private Dao<User,String> userDao=null;
+    private RuntimeExceptionDao<User, String> userRuntimeDao=null;
 
     private Dao<Food, Integer> foodDao = null;
     private RuntimeExceptionDao<Food, Integer> foodRuntimeDao = null;
@@ -48,11 +48,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<Meal, Integer> repasDao = null;
     private RuntimeExceptionDao<Meal, Integer> repasRuntimeDao = null;
 
-    private String TABLE_USER = "user";
+    /*private String TABLE_USER = "user";
     private int COLUMN_USER_ID;
     private String COLUMN_USER_NAME = "name";
     private String COLUMN_USER_EMAIL = "email";
-    private String COLUMN_USER_PASSWORD = "password";
+    private String COLUMN_USER_PASSWORD = "password";*/
 
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
@@ -67,6 +67,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTableIfNotExists(connectionSource, Food.class);
             TableUtils.createTableIfNotExists(connectionSource, Day.class);
             TableUtils.createTableIfNotExists(connectionSource, Meal.class);
+            TableUtils.createTableIfNotExists(connectionSource, User.class);
+            TableUtils.clearTable(connectionSource, User.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
@@ -84,8 +86,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Food.class, true);
             TableUtils.dropTable(connectionSource, Meal.class, true);
             TableUtils.dropTable(connectionSource, Day.class, true);
-           // db.execSQL("create table User(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT,email TEXT, password TEXT)");
-          //  TableUtils.dropTable(connectionSource,User.class,true);
+            TableUtils.dropTable(connectionSource, User.class,true);
             // after we drop the old databases, we create the new ones
             onCreate(db, connectionSource);
         } catch (SQLException e) {
@@ -99,12 +100,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
      * value.
      */
 
-  /**  public Dao<User,Integer> getId() throws SQLException{
+    public Dao<User,String> getUserDao() throws SQLException{
         if (userDao==null){
             userDao=getDao(User.class);
         }
         return userDao;
-    }*/
+    }
 
     public Dao<FoodConsumed, Integer> getConsommeDao() throws SQLException {
         if (consommeDao == null) {
@@ -138,12 +139,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
      * Returns the RuntimeExceptionDao (Database Access Object) version of a Dao for our SimpleData class. It will
      * create it or just give the cached value. RuntimeExceptionDao only through RuntimeExceptions.
      */
-  /**  public RuntimeExceptionDao<User,Integer> getUserRuntimeDao(){
+    public RuntimeExceptionDao<User,String> getUserRuntimeDao(){
         if (userRuntimeDao==null){
             userRuntimeDao=getRuntimeExceptionDao(User.class);
         }
         return userRuntimeDao;
-    }*/
+    }
 
     public RuntimeExceptionDao<Food, Integer> getFoodRuntimeDao() {
         if (foodRuntimeDao == null) {
@@ -203,14 +204,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     /**
      * Close the database connections and clear any cached DAOs.
      */
-    @Override
     public void close() {
         super.close();
-       // userDao=null;
+        userDao=null;
         foodDao = null;
         foodRuntimeDao = null;
         consommeDao = null;
-       // userRuntimeDao=null;
+        userRuntimeDao=null;
         consommeRuntimeDao = null;
         journeeDao  = null;
         journeeRuntimeDao = null;
