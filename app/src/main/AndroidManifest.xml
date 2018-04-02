@@ -16,7 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreaAccount" />
         <activity android:name=".Activities.GoalActivity" />
         <activity android:name=".Activities.MealActivity"
             android:parentActivityName=".Activities.NavigationActivity" />
@@ -26,18 +25,26 @@
             android:name=".Activities.DailyActivity"
             android:parentActivityName=".Activities.NavigationActivity" />
         <activity android:name=".Activities.NavigationActivity">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name=".Activities.PersonnalInfoActivity" />
         <activity
             android:name=".MainActivity"
             android:parentActivityName=".Activities.DailyActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".LoginActivity">            </activity>
+        <activity android:name=".Activities.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activities.CreaAccountActivity">
+        </activity>
     </application>
 
 </manifest>

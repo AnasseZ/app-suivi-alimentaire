@@ -20,8 +20,8 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
             Food.class,
             Day.class,
             Meal.class,
-            DayMealConsumed.class
-           // User.class
+            DayMealConsumed.class,
+            User.class
     };
     public static void main(String[] args) throws Exception {
         writeConfigFile(new File("./app/src/main/res/raw/ormlite_config.txt"), classes);
