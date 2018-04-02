@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Activities.AddMealActivity;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Activities.DailyActivity;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Day;
@@ -47,7 +48,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     private Day currentDay;
     private DayRepository dayRepository;
-    String dateStr = "04/05/2010";
 
     private NutrimentsCalculator nutrimentsCalculator;
 
@@ -72,7 +72,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
         nutrimentsCalculator = new NutrimentsCalculator();
         dayRepository = new DayRepository();
-        currentDay = dayRepository.findDayByDate(dateStr, getHelper());
 
         listView = (ListView) findViewById(R.id.foodList);
         listView.setOnItemClickListener(this.getOnItemClickListener());
@@ -109,26 +108,42 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                         foodClicked.initializeDataNutriment(RATIO_KJ_TO_KCAL);
                         foodDao.create(foodClicked);
 
-                        //ajout de la journee
-                        RuntimeExceptionDao<Day, String> journeeDao = getHelper().getJourneeRuntimeDao();
-                        Day currentDay = journeeDao.queryForId(getIntent().getStringExtra("Date"));
-                        if(currentDay == null){
-                            currentDay = new Day(getIntent().getStringExtra("Date"));
-                            journeeDao.create(currentDay);
+                        if(getIntent().hasExtra("Date")) {
+                            //ajout de la journee
+                            RuntimeExceptionDao<Day, String> journeeDao = getHelper().getJourneeRuntimeDao();
+                            Day currentDay = journeeDao.queryForId(getIntent().getStringExtra("Date"));
+                            if (currentDay == null) {
+                                currentDay = new Day(getIntent().getStringExtra("Date"));
+                                journeeDao.create(currentDay);
+                            }
+
+
+                            //ajout de la consomation
+                            RuntimeExceptionDao<FoodConsumed, Integer> consommeDao = getHelper().getConsommeDataDao();
+
+                            FoodConsumed ajoutConsommation = new FoodConsumed(quantityConsumed, foodClicked.getId(), "day", currentDay.getDateJournee());
+                            consommeDao.create(ajoutConsommation);
+
+                            nutrimentsCalculator.updateGoals(currentDay, foodClicked, quantityConsumed);
+                            journeeDao.update(currentDay);
+
+                            Intent intent = new Intent(MainActivity.this, DailyActivity.class);
+                            startActivity(intent);
+                        } else {
+
+                            Intent intent = getIntent();
+                            Integer idMeal = intent.getIntExtra("idRepas",-1);
+
+                            //ajout de la consomation
+                            RuntimeExceptionDao<FoodConsumed, Integer> consommeDao = getHelper().getConsommeDataDao();
+
+                            FoodConsumed ajoutConsommation = new FoodConsumed(quantityConsumed, foodClicked.getId(),"meal",idMeal);
+                            consommeDao.create(ajoutConsommation);
+
+                            intent = new Intent(MainActivity.this, AddMealActivity.class);
+                            startActivity(intent);
                         }
 
-
-                        //ajout de la consomation
-                        RuntimeExceptionDao<FoodConsumed, Integer> consommeDao = getHelper().getConsommeDataDao();
-
-                        FoodConsumed ajoutConsommation= new FoodConsumed(quantityConsumed,foodClicked.getId(),"day", currentDay.getDateJournee());
-                        consommeDao.create(ajoutConsommation);
-
-                        nutrimentsCalculator.updateGoals(currentDay, foodClicked, quantityConsumed);
-                        journeeDao.update(currentDay);
-
-                        Intent intent = new Intent(MainActivity.this, DailyActivity.class);
-                        startActivity(intent);
                         finish();
 
                         //foodClicked.setQuantityConsumed(quantityConsumed);

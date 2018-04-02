@@ -67,7 +67,7 @@ public class NavigationActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         @Override
         public void onClick(View view) {
             Log.d("debug","Ajouter un repas");
-            Intent addmealActivity = new Intent(NavigationActivity.this, MainActivity.class);
+            Intent addmealActivity = new Intent(NavigationActivity.this, MealActivity.class);
             startActivity(addmealActivity);
         }
     };

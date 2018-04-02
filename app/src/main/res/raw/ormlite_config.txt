@@ -1,5 +1,4 @@
 #
-# generated on 2018/03/28 11:41:10
 #
 # --table-start--
 dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed
@@ -118,6 +117,18 @@ fieldName=nom
 # --table-end--
 #################################
 # --table-start--
+dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.DayMealConsumed
+tableName=daymealconsumed
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=idMeal
+# --field-end--
+# --field-start--
+fieldName=idDay
 dataClass=com.zoutexlexba.miage.app_suivi_alimentaire.Entity.User
 tableName=User
 # --table-fields-start--

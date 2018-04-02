@@ -1,72 +1,104 @@
 package com.zoutexlexba.miage.app_suivi_alimentaire.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Day;
-import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Meal;
 import com.zoutexlexba.miage.app_suivi_alimentaire.MainActivity;
 import com.zoutexlexba.miage.app_suivi_alimentaire.R;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.DayRepository;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.FoodConsumedRepository;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.FoodRepository;
-import com.zoutexlexba.miage.app_suivi_alimentaire.Repository.MealRepository;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Services.*;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Services.DatabaseHelper;
-import com.zoutexlexba.miage.app_suivi_alimentaire.Services.FoodAdapter;
-import com.zoutexlexba.miage.app_suivi_alimentaire.Services.ListViewDailyAdapters;
 
-import java.math.BigInteger;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-
 import static com.zoutexlexba.miage.app_suivi_alimentaire.Services.Constants.FIRST_COLUMN;
 import static com.zoutexlexba.miage.app_suivi_alimentaire.Services.Constants.SECOND_COLUMN;
 
-public class DailyActivity extends OrmLiteBaseActivity<DatabaseHelper> {
-    //date fictive pour test
-    String dateStr = "04/05/2010";
+/**
+ * Created by JeanJack on 23/03/2018.
+ */
+
+public class AddMealActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     private ArrayList<HashMap<String, String>> foodList;
     private ArrayList<Food> food;
-    private ArrayList<Meal> meal;
+
+    private FoodAdapter foodAdapter;
 
     private FoodConsumedRepository foodConsumedRepository;
     private FoodRepository foodRepository;
-    private DayRepository dayRepository;
-    private MealRepository mealRepository;
+
+    private Meal currentMeal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_daily);
+        setContentView(R.layout.activity_add_meal);
 
-        ListView listView = (ListView) findViewById(R.id.foodListDaily);
+        final EditText input = (EditText) findViewById(R.id.input_nom);
+
+        Intent intent = getIntent();
+        Integer idMeal = intent.getIntExtra("idRepas",-1);
+
+        final RuntimeExceptionDao<Meal, Integer> mealDao = getHelper().getRepasRuntimeDao();
+        currentMeal = mealDao.queryForId(idMeal);
+        if(currentMeal == null){
+            currentMeal = new Meal();
+            mealDao.create(currentMeal);
+        }
+
+        input.setText(currentMeal.getNom());
+
+        input.addTextChangedListener(new TextWatcher() {
+            boolean _ignore = false;
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (_ignore)
+                    return;
+
+                _ignore = true; // prevent infinite loop
+                // Change your text here.
+                currentMeal.setNom(input.getText().toString());
+                mealDao.update(currentMeal);
+                _ignore = false; // release, so the TextWatcher start to listen again.
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+            }
+        });
+
+
+        ListView listView = (ListView) findViewById(R.id.foodListMeal);
         foodList =new ArrayList<HashMap<String,String>>();
 
         foodConsumedRepository = new FoodConsumedRepository();
         foodRepository = new FoodRepository();
-        dayRepository = new DayRepository();
 
-        Day currentJournee = dayRepository.findDayByDate(dateStr, getHelper());
-        List<FoodConsumed> listConso = foodConsumedRepository.findFoodConsumedByDate(dateStr,getHelper());
-
-
+        List<FoodConsumed> listConso = foodConsumedRepository.findFoodConsumedByIdMeal(currentMeal.getId(), getHelper());
         food = foodRepository.findFoodById(listConso, getHelper());
 
         HashMap<String,String> entete=new HashMap<String, String>();
@@ -81,34 +113,15 @@ public class DailyActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             foodList.add(temp);
         }
 
-        mealRepository = new MealRepository();
-        meal = mealRepository.getMealByDate(getHelper(), dateStr);
-
-        for (int i = 0 ; i < meal.size(); i++){
-            HashMap<String,String> temp=new HashMap<String, String>();
-            temp.put(FIRST_COLUMN, "Repas : " + meal.get(i).getNom());
-            temp.put(SECOND_COLUMN, "5000");
-            foodList.add(temp);
-        }
-
         ListViewDailyAdapters adapter=new ListViewDailyAdapters(this, foodList);
         listView.setAdapter(adapter);
     }
 
+
     public void AjoutAliment(View view){
-        Intent intent = new Intent(DailyActivity.this, MainActivity.class);
+        Intent intent = new Intent(AddMealActivity.this, MainActivity.class);
 
-        //Gestion de la date
-        intent.putExtra("Date", dateStr);
-
-        startActivity(intent);
-    }
-
-    public void AjoutRepas(View view){
-        Intent intent = new Intent(DailyActivity.this, MealActivity.class);
-
-        //Gestion de la date
-        intent.putExtra("Date", dateStr);
+        intent.putExtra("idRepas", currentMeal.getId());
 
         startActivity(intent);
     }

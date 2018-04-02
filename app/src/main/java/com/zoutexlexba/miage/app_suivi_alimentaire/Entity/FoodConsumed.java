@@ -97,4 +97,8 @@ public class FoodConsumed {
     public void setDateJour(String dateJour) {
         this.dateJour = dateJour;
     }
+
+    public void getCalories(){
+
+    }
 }

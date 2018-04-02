@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.j256.ormlite.table.TableUtils;
+import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.DayMealConsumed;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.FoodConsumed;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Day;
 import com.zoutexlexba.miage.app_suivi_alimentaire.Entity.Food;
@@ -30,11 +31,15 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // name of the database file for your application -- change to something appropriate for your app
     private static final String DATABASE_NAME = "foodsave.db";
     // any time you make changes to your database objects, you may have to increase the database version
+
     private static final int DATABASE_VERSION = 8;
 
     // the DAO object we use to access the Aliment table
     private Dao<User,String> userDao=null;
     private RuntimeExceptionDao<User, String> userRuntimeDao=null;
+
+    private Dao<DayMealConsumed, Integer> dayMealConsumedDao = null;
+    private RuntimeExceptionDao<DayMealConsumed, Integer> dayMealConsumedRuntimeDao = null;
 
     private Dao<Food, Integer> foodDao = null;
     private RuntimeExceptionDao<Food, Integer> foodRuntimeDao = null;
@@ -67,6 +72,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTableIfNotExists(connectionSource, Food.class);
             TableUtils.createTableIfNotExists(connectionSource, Day.class);
             TableUtils.createTableIfNotExists(connectionSource, Meal.class);
+            TableUtils.createTableIfNotExists(connectionSource, DayMealConsumed.class);
             TableUtils.createTableIfNotExists(connectionSource, User.class);
             TableUtils.clearTable(connectionSource, User.class);
         } catch (SQLException e) {
@@ -86,6 +92,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Food.class, true);
             TableUtils.dropTable(connectionSource, Meal.class, true);
             TableUtils.dropTable(connectionSource, Day.class, true);
+            TableUtils.dropTable(connectionSource, DayMealConsumed.class, true);
             TableUtils.dropTable(connectionSource, User.class,true);
             // after we drop the old databases, we create the new ones
             onCreate(db, connectionSource);
@@ -135,6 +142,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return repasDao;
     }
 
+    public Dao<DayMealConsumed, Integer> getDayMealConsumedDao() throws SQLException {
+        if (dayMealConsumedDao == null) {
+            dayMealConsumedDao = getDao(DayMealConsumed.class);
+        }
+        return dayMealConsumedDao;
+    }
+
     /**
      * Returns the RuntimeExceptionDao (Database Access Object) version of a Dao for our SimpleData class. It will
      * create it or just give the cached value. RuntimeExceptionDao only through RuntimeExceptions.
@@ -144,6 +158,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             userRuntimeDao=getRuntimeExceptionDao(User.class);
         }
         return userRuntimeDao;
+    }
+
+    public RuntimeExceptionDao<DayMealConsumed, Integer> getDayMealConsumedRuntimeDao() {
+      if (dayMealConsumedRuntimeDao == null) {
+          dayMealConsumedRuntimeDao = getRuntimeExceptionDao(DayMealConsumed.class);
+      }
+      return dayMealConsumedRuntimeDao;
     }
 
     public RuntimeExceptionDao<Food, Integer> getFoodRuntimeDao() {
@@ -216,5 +237,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         journeeRuntimeDao = null;
         repasDao = null;
         repasRuntimeDao = null;
+        dayMealConsumedDao = null;
+        dayMealConsumedRuntimeDao = null;
     }
 }
